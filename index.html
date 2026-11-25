@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grade Curricular UFSC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0c1418);--ink:light-dark(#10232c,#e4eef2);--mute:light-dark(#5d7480,#8ea4ae);--line:light-dark(#d5e0e5,#25363e);--card:light-dark(#ffffff,#121e24);--soft:light-dark(#f1f6f8,#16252c);--acc:light-dark(#0b63b0,#5aa9ef);--ok:light-dark(#178a4f,#3fcf85);--okbg:light-dark(#e5f6ec,#123425);--bad:light-dark(#d96a00,#ff9a3c);--badbg:light-dark(#fff0e0,#3a2410);--cur:light-dark(#b37a00,#f2bb3a);--curbg:light-dark(#fff4d6,#3a2e10);--lil:light-dark(#d4302a,#ff6b63);--lilbg:light-dark(#fde8e7,#3a1614);--dn:light-dark(#8a4fd0,#b996ec)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:Archivo,Inter,sans-serif;margin:0;line-height:1.05;text-wrap:balance}
+h1{font-size:clamp(28px,5vw,44px);font-weight:800}
+h2{font-size:24px;font-weight:700}
+.band{padding:clamp(20px,3vw,40px) max(4vw,16px)}
+.top{display:grid;gap:18px}
+.sub{color:var(--mute);margin:6px 0 0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.stat{background:var(--soft);border-radius:12px;padding:12px 14px}
+.stat b{display:block;font:700 clamp(22px,4vw,30px)/1.1 Archivo,sans-serif;white-space:nowrap}
+.stat span{font-size:13px;color:var(--mute)}
+.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok);transition:width .4s}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px;color:var(--mute)}
+.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;border:2px solid var(--c);background:var(--b,transparent)}
+.wrap{overflow-x:auto;scroll-snap-type:x proximity;border-block:1px solid var(--line);background:var(--soft);-webkit-overflow-scrolling:touch}
+.board{position:relative;display:flex;gap:46px;padding:20px max(4vw,16px) 28px;width:max-content}
+.board svg{position:absolute;inset:0;pointer-events:none;z-index:0}
+.col{width:158px;display:flex;flex-direction:column;gap:10px;z-index:1;scroll-snap-align:start}
+.col h3{font-size:15px;color:var(--mute);font-weight:700;padding:0 2px 2px}
+.c{position:relative;text-align:left;font:inherit;color:inherit;background:var(--card);border:2px solid var(--line);border-radius:10px;padding:8px 10px;min-height:66px;cursor:pointer;transition:opacity .2s,border-color .2s,box-shadow .2s}
+.c:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.c small{display:flex;justify-content:space-between;gap:6px;font-size:12px;color:var(--mute)}
+.c strong{display:block;font-size:13px;font-weight:600;line-height:1.25;margin-top:2px}
+.c.av{border-color:var(--acc);box-shadow:0 0 0 3px light-dark(#0b63b01f,#5aa9ef33)}
+.c.ap{border-color:var(--ok);background:var(--okbg)}
+.c.rp{border-color:var(--bad);background:var(--badbg)}
+.c.cu{border-color:var(--cur);background:var(--curbg)}
+.c.bl{border-color:var(--lil);background:var(--lilbg)}
+.c.opt{border-style:dashed}
+.c.sel{box-shadow:0 0 0 4px var(--acc)}
+.board.focus .c:not(.hl){opacity:.28}
+.k{font-weight:600;color:var(--acc)}
+.c.ap .k{color:var(--ok)}
+path{fill:none;stroke:var(--line);stroke-width:1.6;transition:opacity .2s}
+path.done{stroke:var(--ok);opacity:.7}
+.board.focus path{opacity:.08}
+.board.focus path.hl{opacity:1;stroke:var(--acc);stroke-width:2.6}
+.board.focus path.hl.dn{stroke:var(--dn)}
+.hint{font-size:13px;color:var(--mute);margin:10px max(4vw,16px) 0}
+.rank{display:grid;gap:8px;margin-top:14px;max-width:820px}
+.rk{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 12px;align-items:center;text-align:left;font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;min-height:44px}
+.rk em{font-style:normal;font:700 22px Archivo,sans-serif;color:var(--lil);width:2.2em;text-align:right}
+.rk p{margin:0;font-size:13px;color:var(--mute)}
+.tag{font-size:12px;font-weight:600;padding:3px 8px;border-radius:20px;white-space:nowrap;background:var(--soft)}
+.tag.av{color:var(--acc)}.tag.rp{color:var(--bad)}.tag.cu{color:var(--cur)}
+.sheet{position:fixed;z-index:9;left:0;right:0;bottom:0;max-height:78vh;overflow:auto;background:var(--card);border-top:1px solid var(--line);border-radius:18px 18px 0 0;box-shadow:0 -12px 40px #0003;padding:18px max(4vw,16px) 26px;transform:translateY(105%);transition:transform .25s}
+.sheet.on{transform:none}
+@media(min-width:900px){.sheet{left:auto;top:0;width:400px;max-height:none;border-radius:0;border-left:1px solid var(--line);transform:translateX(105%)}}
+.sh{display:flex;justify-content:space-between;gap:12px;align-items:start}
+.x{border:0;background:var(--soft);color:var(--ink);width:44px;height:44px;border-radius:50%;font-size:22px;cursor:pointer;flex:none}
+.btns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:16px 0}
+.btns button,.act{font:600 15px Inter,sans-serif;min-height:44px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.btns button.on{border-color:var(--ink)}
+.btns button:disabled{opacity:.35;cursor:not-allowed}
+.box.lk{background:var(--lilbg);border:1px solid var(--lil)}
+.btns .ap.on{background:var(--okbg);border-color:var(--ok)}.btns .rp.on{background:var(--badbg);border-color:var(--bad)}.btns .cu.on{background:var(--curbg);border-color:var(--cur)}
+.box{background:var(--soft);border-radius:10px;padding:10px 12px;margin:10px 0;font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{font:500 13px Inter,sans-serif;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 9px;cursor:pointer;min-height:36px}
+.chip.ap{border-color:var(--ok)}
+.lbl{font-size:13px;color:var(--mute);font-weight:600;margin-top:14px}
+select,textarea{font:16px Inter,sans-serif;width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+details{margin-top:24px;max-width:820px}
+summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.act{padding:0 16px}
+.act.warn{border-color:var(--bad);color:var(--bad)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{font:600 15px Inter,sans-serif;min-height:44px;padding:0 18px;border-radius:22px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.tab.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="band top">
+  <div class="tabs" id="tabs"><button class="tab" data-k="eq">Engenharia Química</button><button class="tab" data-k="ee">Engenharia Elétrica</button></div>
+  <div><h1 id="ttl">Grade</h1><p class="sub" id="cur"></p></div>
+  <div class="stats" id="stats"></div>
+  <div class="bar"><i id="pbar"></i></div>
+  <div class="legend"><span style="--c:var(--ok);--b:var(--okbg)">Aprovada</span><span style="--c:var(--bad);--b:var(--badbg)">Reprovada</span><span style="--c:var(--cur);--b:var(--curbg)">Cursando</span><span style="--c:var(--acc)">Disponível agora</span><span style="--c:var(--lil);--b:var(--lilbg)">Bloqueada</span><span style="--c:var(--mute)">→N = quantas ela trava</span></div>
+</header>
+<div class="wrap" id="wrap"><div class="board" id="board"></div></div>
+<p class="hint">Arraste para o lado para ver todas as fases. Ao selecionar uma disciplina, a cadeia de pré-requisitos fica em azul e o que ela libera em roxo.</p>
+<section class="band">
+  <h2>Gargalos: o que mais trava o seu curso</h2>
+  <p class="sub">Disciplinas ainda não aprovadas, ordenadas por quantas outras dependem delas (direta ou indiretamente).</p>
+  <div class="rank" id="rank"></div>
+  <details>
+    <summary>Backup e reinício</summary>
+    <p class="sub">O progresso fica salvo neste navegador. Copie o código para guardar ou levar a outro aparelho.</p>
+    <div class="row"><button class="act" id="cp">Copiar progresso</button><button class="act warn" id="rs">Apagar tudo</button></div>
+    <p class="lbl">Colar progresso salvo</p>
+    <textarea id="imp" rows="3"></textarea>
+    <div class="row"><button class="act" id="im">Importar</button><span id="msg" class="sub"></span></div>
+  </details>
+</section>
+<aside class="sheet" id="sheet" aria-live="polite"></aside>
+<script>
+{
+const P1=[["EEL7810","Área Básica"],["EEL7811","Sistemas de Energia"],["EEL7812","Eletrônica de Potência e Acionamentos"],["EEL7813","Eletrônica"],["EEL7814","Telecomunicações"],["EEL7815","Controle e Processamento de Sinais"],["EEL7816","Gestão Empresarial"]].map(([c,n])=>[c,"Projeto Nível I – "+n]);
+const P2=[["EEL7820","Área Básica"],["EEL7821","Sistemas de Energia"],["EEL7822","Eletrônica de Potência e Acionamentos"],["EEL7823","Eletrônica"],["EEL7824","Telecomunicações"],["EEL7825","Controle e Processamento de Sinais"],["EEL7826","Gestão Empresarial"]].map(([c,n])=>[c,"Projeto Nível II – "+n]);
+const C={
+eq:{nome:"Engenharia Química",cur:"currículo 19911",total:4374,key:"eq-ufsc-19911",
+D:[
+["EQA5103","Introdução à Engenharia Química",36,1,[]],["FSC5101","Física I",72,1,[]],["GMT5617","Desenho Técnico para Eng. Química e de Alimentos",72,1,[]],["INE5201","Introdução à Ciência da Computação",54,1,[]],["MTM3110","Cálculo 1",72,1,[]],["QMC5152","Química Geral e Inorgânica I",72,1,[]],
+["FSC5002","Física II",72,2,["FSC5101"]],["FSC5122","Física Experimental I",54,2,["FSC5101"]],["MTM3120","Cálculo 2",72,2,["MTM3110"]],["MTM3121","Álgebra Linear",72,2,[]],["QMC5125","Química Geral Experimental A",36,2,["QMC5152"]],["QMC5222","Química Orgânica Teórica A",72,2,["QMC5152"]],
+["EMC5131","Estática e Intro. à Mecânica dos Sólidos",72,3,["FSC5002"]],["FSC5113","Física III",72,3,["FSC5002"]],["MTM3103","Cálculo 3",72,3,["MTM3120"]],["MTM3131","Equações Diferenciais Ordinárias",72,3,["MTM3120","MTM3121"]],["QMC5229","Química Orgânica",72,3,["QMC5222"]],["QMC5450","Fundamentos da Cinética Química",36,3,["MTM3120","QMC5152"]],
+["EQA5318","Introdução aos Processos Químicos",72,4,["FSC5002","QMC5152"]],["FSC5114","Física IV",72,4,["FSC5113"]],["FSC5123","Física Experimental II",54,4,["FSC5113"]],["MTM3104","Cálculo 4",72,4,["MTM3131"]],["QMC5230","Química Orgânica Experimental I",72,4,["QMC5222"]],["QMC5350","Fundamentos da Química Analítica",36,4,["QMC5152"]],
+["DIR5996","Noções Gerais de Direito",54,5,[]],["EQA5201","Materiais e Corrosão",54,5,["QMC5450"]],["EQA5341","Termodinâmica para Eng. Química I",72,5,["EQA5318","MTM3120"]],["EQA5415","Fenômenos de Transferência I",72,5,["EQA5318","MTM3120"]],["INE5108","Estatística e Probabilidade",54,5,["MTM3120"]],["INE5202","Cálculo Numérico em Computadores",72,5,["INE5201","MTM3103"]],["QMC5351","Química Analítica Instrumental",72,5,["QMC5350"]],
+["BQA5126","Introdução à Engenharia Bioquímica",72,6,["QMC5230"]],["EQA5313","Op. Unitárias de Transf. de Quant. de Movimento",72,6,["EQA5415"]],["EQA5342","Termodinâmica para Eng. Química II",72,6,["EQA5341"]],["EQA5408","Cálculo de Reatores I",72,6,["EQA5318"]],["EQA5416","Fenômenos de Transferência II",72,6,["EQA5415"]],
+["EPS5211","Programação Econômica e Financeira",54,7,[],2000],["EQA5316","Engenharia Bioquímica",72,7,["BQA5126","EQA5318"]],["EQA5331","Op. Unitárias de Transf. de Calor I",72,7,["EQA5416"]],["EQA5345","Fenômenos de Superfície",72,7,["EQA5342"]],["EQA5409","Cálculo de Reatores II",72,7,["EQA5408"]],["EQA5417","Fenômenos de Transferência III",72,7,["EQA5415"]],["OPT1","Optativa I",54,7,[]],
+["EQA5214","Indústrias Químicas",72,8,["EQA5318"]],["EQA5312","Análise e Simulação de Processos",72,8,["EQA5416","INE5202"]],["EQA5333","Op. Unitárias de Transf. de Calor e Massa",72,8,["EQA5416"]],["EQA5506","Projetos I",72,8,[],2520],["EQA5531","Lab. de Fen. de Transf. e Op. Unitárias I",72,8,["EQA5313","EQA5416"]],["OPT2","Optativa II",54,8,[]],
+["EQA5309","Engenharia Ambiental",72,9,["EQA5313"]],["EQA5508","Projeto de Conclusão de Curso",54,9,["EQA5506"]],["EQA5517","Laboratório para Engenharia Química",54,9,["EQA5342","EQA5409"]],["EQA5521","Controle de Processos I",72,9,["EQA5417","MTM3104"]],["EQA5532","Lab. de Fen. de Transf. e Op. Unitárias II",72,9,["EQA5331","EQA5417"]],["OPT3","Optativa III",54,9,[]],["OPT4","Optativa IV",54,9,[]],
+["EQA5615","Estágio Supervisionado",720,10,["EQA5333","QMC5450"],3474]
+],
+opts:[["EGC5013","Gestão do Conhecimento nas Organizações"],["EQA5219","Indústrias de Óleos, Gorduras e Bebidas"],["EQA5226","Fermentações Industriais"],["EQA5230","Segurança em Indústria"],["EQA5235","Tecnologia Têxtil"],["EQA5236","Tecnologia Cerâmica"],["EQA5237","Petroquímica"],["EQA5238","Análise e Controle de Processos de Petróleo e Gás"],["EQA5239","Fundamentos da Engenharia de Petróleo"],["EQA5413","Catálise Heterogênea"],["EQA5425","Tópicos Esp. em Fen. de Transf. e Op. Unitárias"],["EQA5426","Tópicos Especiais em Eng. Química I"],["EQA5427","Tópicos Especiais em Eng. de Alimentos"],["EQA5429","Tópicos Especiais em Eng. Química II"],["EQA5430","Tópicos Especiais em Eng. Química III"],["EQA5501","Estágio Curricular Optativo I"],["EQA5502","Iniciação Científica"],["EQA5550","Tecnologia de Celulose e Papel"],["EQA5560","Intro. à Eng. de Sistemas Poliméricos"],["EQA5561","Introdução à Engenharia Genômica"],["EQA5562","Ferramentas Computacionais em Eng. Química"],["EQA5563","Atividades de Gestão e Empreendedorismo"],["EQA5622","Pós - Controle de Processos de Petróleo e Gás"],["EQA5623","Pós - Simulação Numérica de Fen. de Transporte"],["EQA5624","Pós - Conversão Térmica de Biomassa"],["EQA5625","Pós - Tecnologia de Biorreatores"],["EQA5626","Pós - Fundamentos em Processos de Separação"],["EQA5627","Pós - Tecnologias de Produção de Biocombustíveis"],["LSB7244","Libras I"],["LIVRE","Livre escolha (outra disciplina da UFSC)"]],
+notes:{EQA5615:"Exige todas as obrigatórias anteriores e duas optativas (3474 h/a)."}},
+ee:{nome:"Engenharia Elétrica",cur:"currículo 20051",total:4446,key:"ee-ufsc-20051",
+D:[
+["EEL7011","Laboratório de Eletricidade Básica",36,1,[]],["EEL7014","Introdução às Engenharias Elétrica e Eletrônica",36,1,[]],["EGR5619","Desenho Técnico para Engenharia Elétrica",72,1,[]],["FSC5101","Física I",72,1,[]],["INE5201","Introdução à Ciência da Computação",54,1,[]],["MTM3110","Cálculo 1",72,1,[]],["QMC5125","Química Geral Experimental A",36,1,[]],["QMC5138","Química Geral",36,1,[]],
+["EEL5105","Circuitos e Técnicas Digitais",90,2,["EEL7011","INE5201"]],["EEL7013","Laboratório de Transdutores",36,2,["EEL7011"]],["FSC5002","Física II",72,2,["FSC5101","MTM3110"]],["FSC5122","Física Experimental I",54,2,["FSC5101"]],["MTM3120","Cálculo 2",72,2,["MTM3110"]],["MTM3121","Álgebra Linear",72,2,["MTM3110"]],
+["ECZ5102","Conservação de Recursos Naturais",36,3,[],700],["FSC5113","Física III",72,3,["FSC5002"]],["INE5118","Probabilidade, Estatística e Processos Estocásticos",72,3,["MTM3120"]],["INE5202","Cálculo Numérico em Computadores",72,3,["INE5201","MTM3120","MTM3121"]],["MTM3103","Cálculo 3",72,3,["MTM3120"]],["MTM3131","Equações Diferenciais Ordinárias",72,3,["MTM3120","MTM3121"]],
+["EEL7035","Microprocessadores e Microcontroladores",72,4,["EEL5105"]],["EEL7041","Eletromagnetismo",72,4,["FSC5113","MTM3103"]],["EEL7045","Circuitos Elétricos A",108,4,["EEL7013","FSC5113","MTM3120"]],["EPS7019","Engenharia Econômica",54,4,[],900],["FSC5114","Física IV",72,4,["FSC5113"]],["MTM3104","Cálculo 4",72,4,["MTM3131"]],
+["EEL7051","Materiais Elétricos",72,5,["FSC5114","QMC5125","QMC5138"]],["EEL7052","Sistemas Lineares",90,5,["EEL7045","MTM3104","MTM3121"]],["EEL7053","Ondas Eletromagnéticas",72,5,["EEL7041","EEL7045"]],["EEL7055","Circuitos Elétricos B",108,5,["EEL7045"]],["EEL7061","Eletrônica I",108,5,["EEL7045","FSC5114"]],
+["DIR5998","Legislação e Ética em Engenharia Elétrica",36,6,[],1200],["EEL7062","Princípios de Sistemas de Comunicação",90,6,["EEL7052","INE5118"]],["EEL7063","Sistemas de Controle",108,6,["EEL7052"]],["EEL7064","Conversão Eletromecânica de Energia A",72,6,["EEL7041","EEL7051","EEL7055"]],["EEL7072","Projeto de Instalações Elétricas",72,6,["EEL7051","EEL7055"]],["EEL7522","Processamento Digital de Sinais",72,6,["EEL7052"]],
+["EEL7071","Introdução a Sistemas de Energia Elétrica",72,7,["EEL7053","EEL7064","INE5202"]],["EEL7073","Conversão Eletromecânica de Energia B",72,7,["EEL7064"]],["EEL7074","Eletrônica de Potência I",90,7,["EEL7061"]],["EEL7300","Instrumentação Eletrônica",90,7,["EEL5105","EEL7061"]],["EMC5425","Fenômenos de Transportes",72,7,["FSC5113","FSC5122","MTM3103"]],["INE5407","Ciência, Tecnologia e Sociedade",54,7,[],1200],["PROJ1","Projeto Nível I (1ª área)",72,7,[]],
+["EEL7080","Seminários de Engenharia Elétrica",36,8,["EEL7055","PROJ1"]],["EEL7081","Aspectos de Segurança em Engenharia",36,8,["EEL7072"]],["PROJ2","Projeto Nível I (2ª área)",72,8,[]],["OPT1","Optativa I",72,8,[]],["OPT2","Optativa II",72,8,[]],["OPT3","Optativa III",72,8,[]],["OPT4","Optativa IV",72,8,[]],["OPT5","Optativa V",72,8,[]],
+["EST","Estágio Curricular (Longo ou Curto I + II)",360,9,[],2000],["EEL7889","Planejamento do TCC",36,9,["EEL7080","PROJ2"]],["PROJ3","Projeto Nível II",72,9,[]],["OPT6","Optativa VI",72,9,[],2000],
+["EEL7890","Trabalho de Conclusão de Curso (TCC)",324,10,["EEL7889","PROJ3"]]
+],
+opts:[["EEL7083","Energia Elétrica e Sustentabilidade"],["EEL7100","Operação de Sistemas de Energia Elétrica"],["EEL7101","Dinâmica e Controle de Sistemas Elétricos"],["EEL7102","Sistema de Distribuição de Energia Elétrica"],["EEL7103","Instalações Elétricas Industriais"],["EEL7104","Planejamento e Regulação de Mercados de Energia"],["EEL7105","Planejamento da Operação de Sistemas de Energia"],["EEL7106","Proteção de Sistemas Elétricos"],["EEL7107","Transmissão de Energia Elétrica"],["EEL7200","Eletrônica de Potência II"],["EEL7201","Aspectos Construtivos e Análise de Máquinas"],["EEL7202","Acionamentos Elétricos e Eletrônicos"],["EEL7203","Projeto de Fontes Chaveadas"],["EEL7204","Processamento de Energia Fotovoltaica"],["EEL7205","Dispositivos de Armazenamento de Energia"],["EEL7210","Modelagem Eletromagnética"],["EEL7211","Elementos Finitos em Engenharia Elétrica"],["EEL7212","Introdução à Compatibilidade Eletromagnética"],["EEL7301","Circuitos Eletrônicos Digitais"],["EEL7302","Projeto de Sistemas Digitais em PLDs"],["EEL7303","Circuitos Eletrônicos Analógicos"],["EEL7304","Filtros Analógicos"],["EEL7307","Introdução à Informática Médica"],["EEL7308","Fundamentos de Engenharia Biomédica"],["EEL7317","Projeto VLSI"],["EEL7318","Projeto de Circuitos Integrados"],["EEL7319","Circuitos RF"],["EEL7320","Optoeletrônica"],["EEL7400","Telecomunicações: Teoria e Fundamentos"],["EEL7401","Teoria da Informação"],["EEL7402","Redes de Comunicação de Computadores"],["EEL7403","Comunicações Móveis"],["EEL7404","Sistemas de Comunicações Ópticas"],["EEL7406","Engenharia de Microondas"],["EEL7416","Introdução à Codificação"],["EEL7417","Fundamentos de Comunicação Digital"],["EEL7418","Engenharia de Antenas"],["EEL7531","Fundamentos de Controle"],["EEL7502","Técnicas Avançadas de Controle"],["EEL7504","Processamento Adaptativo de Sinais"],["EEL7520","Fundamentos de Processamento de Sinais"],["EEL7022","Processamento Digital Multi-Taxas"],["EEL7023","Processamento Digital de Imagens"],["DAS5131","Controle Multivariável"],["DAS5141","Sistemas Não-Lineares"],["EMC5247","Robótica"],["EEL7600","Fundamentos de Gestão Empresarial"],["EEL7601","Telecomunicações: Gerência e Negócios"],["EGC5013","Gestão do Conhecimento nas Organizações"],["EPS5220","Gerência da Produção"],["EPS5240","Gerenciamento de Projetos"],["EPS5241","Planejamento Estratégico"],["EPS7034","Gestão Ambiental"],["TOP","Tópicos Especiais / Avançados (qualquer área)"],["ATV","Atividade complementar (monitoria, pesquisa, extensão)"],["LIVRE","Livre escolha (outra disciplina da UFSC)"]],
+slotOpts:{PROJ1:P1,PROJ2:P1,PROJ3:P2},
+notes:{PROJ1:"Seminários (EEL7080) exige 1 projeto cursado; o Planejamento do TCC exige 2; o TCC exige 3.",PROJ2:"Os dois projetos de Nível I devem ser de áreas diferentes.",PROJ3:"O TCC exige os 3 projetos (216 h/a).",EST:"Pode ser o Estágio Longo (EEL7872, 360 h/a) ou os Curtos I e II (EEL7830 + EEL7871, 180 h/a cada).",OPT1:"São 432 h/a de optativas; ao menos 288 em quatro das seis áreas de especialização."}}
+};
+let K="eq";try{const k=localStorage.getItem("grade-curso");if(C[k])K=k}catch(e){}
+if(C[location.hash.slice(1)==="eletrica"?"ee":location.hash.slice(1)==="quimica"?"eq":""])K=location.hash.slice(1)==="eletrica"?"ee":"eq";
+let D,OPTS,TOTAL,KEY,M,DEP,desc,hgt,S,sel=null;
+const getDesc=c=>{if(desc[c])return desc[c];const s=new Set();DEP[c].forEach(d=>{s.add(d);getDesc(d).forEach(x=>s.add(x))});return desc[c]=s};
+const getH=c=>hgt[c]??(hgt[c]=1+Math.max(0,...DEP[c].map(getH)));
+const getAnc=c=>{const s=new Set(),q=[...M[c].p];while(q.length){const x=q.pop();if(!s.has(x)){s.add(x);q.push(...M[x].p)}}return s};
+function load(k){
+  K=k;const c=C[k];D=c.D;OPTS=c.opts;TOTAL=c.total;KEY=c.key;M={};DEP={};desc={};hgt={};sel=null;
+  D.forEach(([c,n,h,f,p,ch])=>{M[c]={c,n,h,f,p,ch:ch||0};DEP[c]=[]});
+  D.forEach(([c,,,,p])=>p.forEach(x=>DEP[x].push(c)));
+  S={s:{},o:{}};try{const v=JSON.parse(localStorage.getItem(KEY));if(v&&v.s)S={s:v.s,o:v.o||{}}}catch(e){}
+  fix();
+  try{localStorage.setItem("grade-curso",k)}catch(e){}
+  try{history.replaceState(null,"","#"+(k==="ee"?"eletrica":"quimica"))}catch(e){}
+  document.getElementById("ttl").textContent="Grade de "+c.nome;
+  document.getElementById("cur").textContent="UFSC · "+c.cur+" · toque numa disciplina para marcar aprovada, reprovada ou cursando";
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.dataset.k===k));
+  sheet.classList.remove("on");
+}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const st=c=>S.s[c]||"";
+const isSlot=c=>/^(OPT|PROJ)/.test(c);
+const slotList=c=>(C[K].slotOpts||{})[c]||OPTS;
+const hours=()=>D.reduce((a,[c,,h])=>a+(st(c)==="ap"?h:0),0);
+const missing=c=>{const m=M[c].p.filter(x=>st(x)!=="ap").map(x=>optName(x));const h=hours();if(M[c].ch>h)m.push(`${M[c].ch} h/a cursadas (você tem ${h})`);return m};
+const avail=c=>st(c)!=="ap"&&!missing(c).length;
+const optName=c=>{if(!isSlot(c))return M[c].n;const f=slotList(c).find(x=>x[0]===S.o[c]);return f?f[1]:M[c].n};
+const board=document.getElementById("board"),sheet=document.getElementById("sheet");
+function cls(c){const s=st(c);return["c",s||(avail(c)?"av":"bl"),isSlot(c)?"opt":""].join(" ")}
+function fix(){const out=[];let ch=true;while(ch){ch=false;for(const[c]of D){if(st(c)&&missing(c).length){out.push(c);delete S.s[c];ch=true}}}return out}
+let note="";
+function render(){
+  const h=hours(),ap=D.filter(([c])=>st(c)==="ap").length,av=D.filter(([c])=>avail(c)).length,rp=D.filter(([c])=>st(c)==="rp").length;
+  document.getElementById("stats").innerHTML=[[`${h} / ${TOTAL}`,"horas-aula aprovadas"],[`${ap} / ${D.length}`,"disciplinas aprovadas"],[av,"disponíveis para cursar"],[rp,"marcadas como reprovadas"]].map(([b,s])=>`<div class="stat"><b>${b}</b><span>${s}</span></div>`).join("");
+  document.getElementById("pbar").style.width=Math.min(100,h/TOTAL*100)+"%";
+  const anc=sel?getAnc(sel):new Set(),des=sel?getDesc(sel):new Set();
+  let html='<svg id="lines"></svg>';
+  for(let f=1;f<=10;f++){
+    html+=`<div class="col"><h3>Fase ${f}</h3>`+D.filter(d=>d[3]===f).map(([c])=>{
+      const n=getDesc(c).size,hl=sel&&(c===sel||anc.has(c)||des.has(c));
+      return`<button class="${cls(c)}${hl?" hl":""}${c===sel?" sel":""}" data-c="${c}" id="n-${c}"><small><span>${isSlot(c)?(c.startsWith("PROJ")?"Projeto":"Optativa"):c}</span><span>${n?`<span class="k">→${n}</span> · `:""}${M[c].h}h</span></small><strong>${optName(c)}</strong></button>`}).join("")+"</div>";
+  }
+  board.innerHTML=html;board.classList.toggle("focus",!!sel);
+  requestAnimationFrame(lines);
+  rank();
+  if(sel)panel();
+}
+function lines(){
+  const svg=document.getElementById("lines");if(!svg)return;
+  const b=board.getBoundingClientRect();svg.setAttribute("width",board.scrollWidth);svg.setAttribute("height",board.scrollHeight);
+  const anc=sel?getAnc(sel):new Set(),des=sel?getDesc(sel):new Set();let out="";
+  D.forEach(([c,,,,p])=>p.forEach(x=>{
+    const A=document.getElementById("n-"+x).getBoundingClientRect(),B=document.getElementById("n-"+c).getBoundingClientRect();
+    const x1=A.right-b.left,y1=A.top+A.height/2-b.top,x2=B.left-b.left,y2=B.top+B.height/2-b.top,dx=Math.max(24,(x2-x1)/2);
+    const up=sel&&(c===sel||anc.has(c))&&(x===sel||anc.has(x)),dn=sel&&(x===sel||des.has(x))&&des.has(c);
+    out+=`<path class="${st(x)==="ap"?"done":""}${up||dn?" hl":""}${dn?" dn":""}" d="M${x1} ${y1}C${x1+dx} ${y1},${x2-dx} ${y2},${x2} ${y2}"/>`;
+  }));
+  svg.innerHTML=out;
+}
+function rank(){
+  const L=D.filter(([c])=>st(c)!=="ap"&&getDesc(c).size).sort((a,b)=>getDesc(b[0]).size-getDesc(a[0]).size||getH(b[0])-getH(a[0])).slice(0,10);
+  const tag=c=>{const s=st(c);return s==="rp"?'<span class="tag rp">Reprovada</span>':s==="cu"?'<span class="tag cu">Cursando</span>':avail(c)?'<span class="tag av">Disponível</span>':'<span class="tag" style="color:var(--lil)">Bloqueada</span>'};
+  document.getElementById("rank").innerHTML=L.length?L.map(([c,n,,f])=>`<button class="rk" data-c="${c}"><em>${getDesc(c).size}</em><div><strong>${n}</strong><p>${c} · fase ${f} · cadeia de ${getH(c)} semestres até o fim</p></div>${tag(c)}</button>`).join(""):'<p class="sub">Nenhuma disciplina pendente trava outras. Falta pouco!</p>';
+}
+function chips(list){return list.length?`<div class="chips">${list.map(x=>`<button class="chip ${st(x)==="ap"?"ap":""}" data-c="${x}">${st(x)==="ap"?"✓ ":""}${optName(x)}</button>`).join("")}</div>`:'<div class="sub">Nenhuma</div>'}
+function panel(){
+  const m=M[sel],s=st(sel),miss=missing(sel),d=getDesc(sel),isOpt=isSlot(sel);
+  const lock=!!miss.length;const sit=s==="ap"?"Aprovada.":lock?`Bloqueada: não dá para marcar até cumprir ${miss.join(", ")}.`:"Disponível para cursar.";
+  sheet.innerHTML=`<div class="sh"><div><p class="sub" style="margin:0 0 4px">${isOpt?(sel.startsWith("PROJ")?"Projeto":"Optativa"):sel} · fase ${m.f} · ${m.h} h/a</p><h2>${optName(sel)}</h2></div><button class="x" id="close" aria-label="Fechar">×</button></div>
+  <div class="btns">${[["ap","Aprovada"],["rp","Reprovada"],["cu","Cursando"],["","Não cursada"]].map(([k,t])=>`<button class="${k}${s===k?" on":""}" data-s="${k}"${lock&&k?" disabled":""}>${t}</button>`).join("")}</div>
+  ${isOpt?`<p class="lbl">Qual disciplina?</p><select id="osel"><option value="">Escolher…</option>${slotList(sel).map(([c,n])=>`<option value="${c}"${S.o[sel]===c?" selected":""}>${n}</option>`).join("")}</select>`:""}
+  ${note?`<div class="box lk">${note}</div>`:""}<div class="box${lock?" lk":""}">${sit}</div>
+  ${m.ch?`<div class="box">Exige ${m.ch} h/a já cursadas.</div>`:""}${(C[K].notes||{})[sel]?`<div class="box">${C[K].notes[sel]}</div>`:""}
+  <p class="lbl">Pré-requisitos</p>${chips(m.p)}
+  <p class="lbl">Libera diretamente</p>${chips(DEP[sel])}
+  ${d.size?`<div class="box">Trava <b>${d.size}</b> disciplinas no total. Mesmo sem reprovar mais nada, a partir dela ainda há uma cadeia de <b>${getH(sel)} semestres</b> até a última dependente.</div>`:""}`;
+  sheet.classList.add("on");
+}
+const pick=c=>{sel=sel===c&&sheet.classList.contains("on")?sel:c;render();const el=document.getElementById("n-"+c);el&&el.scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"})};
+document.addEventListener("click",e=>{
+  const tb=e.target.closest(".tab");if(tb){load(tb.dataset.k);render();return}
+  const t=e.target.closest("[data-c]");if(t){pick(t.dataset.c);return}
+  const b=e.target.closest("[data-s]");if(b&&sel){const v=b.dataset.s;if(v&&missing(sel).length)return;if(v)S.s[sel]=v;else delete S.s[sel];const r=fix();note=r.length?`Também foram desmarcadas, por perderem o pré-requisito: ${r.map(optName).join(", ")}.`:"";save();render();note="";return}
+  if(e.target.closest("#close")){sel=null;sheet.classList.remove("on");render()}
+});
+sheet.addEventListener("change",e=>{if(e.target.id==="osel"){S.o[sel]=e.target.value;save();render()}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&sel){sel=null;sheet.classList.remove("on");render()}});
+const msg=document.getElementById("msg");
+document.getElementById("cp").onclick=async()=>{const t=JSON.stringify(S);try{await navigator.clipboard.writeText(t);msg.textContent="Copiado."}catch(e){document.getElementById("imp").value=t;msg.textContent="Copie o texto acima."}};
+document.getElementById("im").onclick=()=>{try{const v=JSON.parse(document.getElementById("imp").value);if(!v.s)throw 0;S={s:v.s,o:v.o||{}};fix();save();render();msg.textContent="Importado."}catch(e){msg.textContent="Código inválido."}};
+let armed=false;const rs=document.getElementById("rs");
+rs.onclick=()=>{if(!armed){armed=true;rs.textContent="Toque de novo para confirmar";setTimeout(()=>{armed=false;rs.textContent="Apagar tudo"},4000);return}S={s:{},o:{}};save();sel=null;sheet.classList.remove("on");armed=false;rs.textContent="Apagar tudo";render()};
+const ro=new ResizeObserver(()=>requestAnimationFrame(lines));ro.observe(board);
+document.fonts&&document.fonts.ready.then(lines);
+load(K);render();
+}
+</script>
+</body>
+</html>
