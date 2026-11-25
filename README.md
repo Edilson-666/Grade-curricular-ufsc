@@ -4,8 +4,17 @@ Mapa interativo das disciplinas de cada fase, com linhas ligando os pré-requisi
 
 ## Cursos
 
-- Engenharia Química — currículo 19911
+- Engenharia Civil — currículo 20201
+- Engenharia de Alimentos — currículo 19911
+- Engenharia de Aquicultura — currículo 20241
+- Engenharia de Controle e Automação — currículo 20241
+- Engenharia de Materiais — currículo 20181
+- Engenharia de Produção — currículo 20231
 - Engenharia Elétrica — currículo 20051
+- Engenharia Eletrônica — currículo 20092 (em transição: o PDF lista disciplinas antigas e novas juntas)
+- Engenharia Mecânica — currículo 20061
+- Engenharia Química — currículo 19911
+- Engenharia Sanitária e Ambiental — currículo 20151
 
 ## Funcionalidades
 
@@ -15,6 +24,8 @@ Mapa interativo das disciplinas de cada fase, com linhas ligando os pré-requisi
 - Destaque da cadeia de pré-requisitos e do que cada disciplina libera
 - Lista de gargalos: disciplinas pendentes que mais travam o curso
 - Pré-requisitos por carga horária (ex.: estágio, TCC)
+- Pré-requisitos alternativos ("A ou B") conforme o currículo oficial
+- Optativas por carga horária: marque as optativas cursadas até completar o mínimo do curso
 - Escolha de optativas e projetos nos campos correspondentes
 - Progresso salvo no navegador, separado por curso, com backup por copiar/colar
 
