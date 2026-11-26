@@ -53,6 +53,7 @@ Mapa interativo das disciplinas de cada fase dos cursos de graduação da UFSC, 
 - História – Bacharelado e Licenciatura (matutino e noturno) — currículo 20231
 - Jornalismo — currículo 20201
 - Licenciatura Intercultural Indígena do Sul da Mata Atlântica — currículo 20221
+- Letras Alemão, Espanhol, Francês e Inglês – Bacharelado e Licenciatura — currículo 20191
 - Letras Libras – Bacharelado e Licenciatura — currículo 20121
 - Matemática – Bacharelado e Licenciatura — currículo 20241
 - Medicina — currículo 20241
