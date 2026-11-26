@@ -26,6 +26,15 @@ Mapa interativo das disciplinas de cada fase dos cursos de graduação da UFSC, 
 - Antropologia — currículo 20101
 - Arquitetura e Urbanismo — currículo 20261
 - Arquivologia — currículo 20261
+- Artes Cênicas — currículo 20131
+- Biblioteconomia (noturno) — currículo 20161
+- Ciência da Informação — currículo 20261
+- Ciência de Dados — currículo 20261
+- Ciência e Tecnologia de Alimentos — currículo 20241
+- Ciências Biológicas – Bacharelado e Licenciatura (diurno) — currículo 20061
+- Ciências Biológicas – Licenciatura (noturno) — currículo 20101
+- Ciências Contábeis (diurno e noturno) — currículo 20191
+- Ciências da Computação — currículo 20071
 
 ## Funcionalidades
 
