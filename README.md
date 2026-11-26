@@ -51,6 +51,16 @@ Mapa interativo das disciplinas de cada fase dos cursos de graduação da UFSC, 
 - Geografia – Bacharelado e Licenciatura (diurno e noturno) — currículo 20071
 - Geologia — currículo 20181
 - História – Bacharelado e Licenciatura (matutino e noturno) — currículo 20231
+- Jornalismo — currículo 20201
+- Letras Libras – Bacharelado e Licenciatura — currículo 20121
+- Matemática – Bacharelado e Licenciatura — currículo 20241
+- Medicina — currículo 20241
+- Meteorologia — currículo 20261
+- Museologia — currículo 20161
+- Nutrição — currículo 20251
+- Oceanografia — currículo 20081
+- Odontologia — currículo 20071
+- Pedagogia — currículo 20091
 
 ## Funcionalidades
 
