@@ -73,7 +73,18 @@ path.alt{stroke-dasharray:4 4}
 @media(min-width:900px){.sheet{left:auto;top:0;width:400px;max-height:none;border-radius:0;border-top:0;border-left:1px solid var(--line2);box-shadow:-8px 0 24px #0001;transform:translateX(105%)}}
 .sh{display:flex;justify-content:space-between;gap:12px;align-items:start;padding-bottom:14px;border-bottom:1px solid var(--line)}
 .sh h2{font-size:21px}
-.x{border:1px solid var(--line);background:var(--card);color:var(--ink);width:40px;height:40px;border-radius:4px;font-size:20px;cursor:pointer;flex:none}
+.shb{display:flex;gap:6px;flex:none}
+.x path{stroke:currentColor!important;opacity:1!important}
+.mini-st{display:none;margin:2px 0 0;font-size:13px;color:var(--mute)}
+.sheet.min{padding-bottom:14px}
+.sheet.min>*:not(.sh):not(.btns){display:none}
+.sheet.min>.btns{grid-template-columns:repeat(4,minmax(0,1fr));margin:12px 0 0}
+.sheet.min>.btns button{min-height:40px;font-size:13px;padding:0 4px}
+.sheet.min .sh{border-bottom:0;padding-bottom:0;cursor:pointer}
+.sheet.min .sh h2{font-size:17px}
+.sheet.min .mini-st{display:block}
+.sheet.min .sh .sub{display:none}
+.x{display:grid;place-items:center;border:1px solid var(--line);background:var(--card);color:var(--ink);width:40px;height:40px;border-radius:4px;font-size:20px;cursor:pointer;flex:none}
 .btns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:16px 0}
 .btns button,.act{font:500 14px "IBM Plex Sans",sans-serif;min-height:44px;border-radius:4px;border:1px solid var(--line2);background:var(--card);color:var(--ink);cursor:pointer}
 .btns button.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
@@ -214,7 +225,7 @@ const optName=c=>{if(!isSlot(c))return M[c].n;const f=slotList(c).find(x=>x[0]==
 const board=document.getElementById("board"),sheet=document.getElementById("sheet");
 function cls(c){const s=st(c);return["c",s||(avail(c)?"av":missing(c).length?"bl":"hr"),isSlot(c)?"opt":""].join(" ")}
 function fix(){const out=[];let ch=true;while(ch){ch=false;for(const[c]of D){if(!isPool(c)&&st(c)&&missing(c).length){out.push(c);delete S.s[c];ch=true}}}return out}
-let note="";
+let note="",mini=false;
 function render(){
   const h=hours(),ap=D.filter(([c])=>st(c)==="ap").length,av=D.filter(([c])=>avail(c)).length,rp=D.filter(([c])=>st(c)==="rp").length;
   document.getElementById("stats").innerHTML=[[`${h} / ${TOTAL}`,"horas-aula aprovadas"],[`${ap} / ${D.length}`,"disciplinas aprovadas"],[av,"disponíveis para cursar"],[rp,"marcadas como reprovadas"]].map(([b,s])=>`<div class="stat"><b>${b}</b><span>${s}</span></div>`).join("");
@@ -255,7 +266,7 @@ function panel(){
   const m=M[sel],s=st(sel),miss=missing(sel),d=getDesc(sel),isOpt=isSlot(sel);
   const P=isPool(sel),sum=P?poolSum(sel):0,pool=P?`<p class="lbl">Marque as optativas aprovadas (${sum} / ${m.h} h/a)</p><div class="chips">${OPTS.filter(o=>o[2]).map(([c,n,h])=>`<button class="chip${(S.p[sel]||[]).includes(c)?" on":""}" data-o="${c}">${(S.p[sel]||[]).includes(c)?"✓ ":""}${n}<small>${h}h</small></button>`).join("")}</div>`:"";
   const lock=!!miss.length,hrs=hours(),chm=!P&&s!=="ap"&&m.ch>hrs;const sit=P?(sum>=m.h?"Carga de optativas completa.":`Faltam ${m.h-sum} h/a de optativas.`):s==="ap"?"Aprovada.":lock?`Bloqueada: não dá para marcar até cumprir ${miss.join(", ")}.`:chm?`Pré-requisitos cumpridos. Para se matricular, o currículo também exige ${m.ch} h/a cursadas (você marcou ${hrs}).`:"Disponível para cursar.";
-  sheet.innerHTML=`<div class="sh"><div><p class="sub" style="margin:0 0 4px">${P?"Optativas":isOpt?(sel.startsWith("PROJ")?"Projeto":"Optativa"):sel} · fase ${m.f} · ${m.h} h/a</p><h2>${optName(sel)}</h2></div><button class="x" id="close" aria-label="Fechar">×</button></div>
+  sheet.innerHTML=`<div class="sh"><div><p class="sub" style="margin:0 0 4px">${P?"Optativas":isOpt?(sel.startsWith("PROJ")?"Projeto":"Optativa"):sel} · fase ${m.f} · ${m.h} h/a</p><h2>${optName(sel)}</h2><p class="mini-st">${sit}</p></div><div class="shb"><button class="x" id="mini" aria-label="${mini?"Expandir":"Minimizar"}" aria-expanded="${!mini}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="${mini?"M3 10l5-5 5 5":"M3 6l5 5 5-5"}" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button><button class="x" id="close" aria-label="Fechar">×</button></div></div>
   ${P?"":`<div class="btns">`}${P?"":[["ap","Aprovada"],["rp","Reprovada"],["cu","Cursando"],["","Não cursada"]].map(([k,t])=>`<button class="${k}${s===k?" on":""}" data-s="${k}"${lock&&k?" disabled":""}>${t}</button>`).join("")+"</div>"}
   ${isOpt?`<p class="lbl">Qual disciplina?</p><select id="osel"><option value="">Escolher…</option>${slotList(sel).map(([c,n])=>`<option value="${c}"${S.o[sel]===c?" selected":""}>${n}</option>`).join("")}</select>`:""}
   ${note?`<div class="box lk">${note}</div>`:""}<div class="box${lock?" lk":""}">${sit}</div>
@@ -263,13 +274,14 @@ function panel(){
   ${pool}<p class="lbl">Pré-requisitos</p>${preChips(m.p)}
   <p class="lbl">Libera diretamente</p>${chips(DEP[sel].filter(x=>hard(sel,x)))}${DEP[sel].some(x=>!hard(sel,x))?`<p class="lbl">Também serve de alternativa ("ou") para</p>${chips(DEP[sel].filter(x=>!hard(sel,x)))}`:""}
   ${d.size?`<div class="box">Trava <b>${d.size}</b> disciplinas no total. Mesmo sem reprovar mais nada, a partir dela ainda há uma cadeia de <b>${getH(sel)} semestres</b> até a última dependente.</div>`:""}`;
-  sheet.classList.add("on");
+  sheet.classList.add("on");sheet.classList.toggle("min",mini);
 }
 const pick=c=>{sel=sel===c&&sheet.classList.contains("on")?sel:c;render();const el=document.getElementById("n-"+c);el&&el.scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"})};
 document.addEventListener("click",e=>{
   const o=e.target.closest("[data-o]");if(o&&sel&&isPool(sel)){const a=S.p[sel]||(S.p[sel]=[]),i=a.indexOf(o.dataset.o);if(i<0)a.push(o.dataset.o);else a.splice(i,1);const r=fix();note=r.length?`Também foram desmarcadas, por perderem o pré-requisito: ${r.map(optName).join(", ")}.`:"";save();render();note="";return}
   const t=e.target.closest("[data-c]");if(t){pick(t.dataset.c);return}
   const b=e.target.closest("[data-s]");if(b&&sel){const v=b.dataset.s;if(v&&missing(sel).length)return;if(v)S.s[sel]=v;else delete S.s[sel];const r=fix();note=r.length?`Também foram desmarcadas, por perderem o pré-requisito: ${r.map(optName).join(", ")}.`:"";save();render();note="";return}
+  if(e.target.closest("#mini")||(mini&&e.target.closest(".sh")&&!e.target.closest("#close"))){mini=!mini;panel();return}
   if(e.target.closest("#close")){sel=null;sheet.classList.remove("on");render()}
 });
 sheet.addEventListener("change",e=>{if(e.target.id==="osel"){S.o[sel]=e.target.value;save();render()}});
