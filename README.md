@@ -1,8 +1,10 @@
 # Grade Curricular UFSC
 
-Mapa interativo das disciplinas de cada fase, com linhas ligando os pré-requisitos.
+Mapa interativo das disciplinas de cada fase dos cursos de graduação da UFSC, com linhas ligando os pré-requisitos.
 
 ## Cursos
+
+### Engenharias
 
 - Engenharia Civil — currículo 20201
 - Engenharia de Alimentos — currículo 19911
@@ -15,6 +17,15 @@ Mapa interativo das disciplinas de cada fase, com linhas ligando os pré-requisi
 - Engenharia Mecânica — currículo 20061
 - Engenharia Química — currículo 19911
 - Engenharia Sanitária e Ambiental — currículo 20151
+
+### Outros cursos
+- Administração (diurno) — currículo 20081
+- Administração (noturno) — currículo 20231
+- Agronomia — currículo 20251
+- Animação — currículo 20161
+- Antropologia — currículo 20101
+- Arquitetura e Urbanismo — currículo 20261
+- Arquivologia — currículo 20261
 
 ## Funcionalidades
 
