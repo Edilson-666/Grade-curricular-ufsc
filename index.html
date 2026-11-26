@@ -118,12 +118,13 @@ summary{cursor:pointer;font-weight:500;min-height:44px;display:flex;align-items:
 footer{padding:20px max(4vw,16px) 40px;font-size:12.5px;color:var(--mute);border-top:1px solid var(--line);background:var(--paper)}
 footer p{margin:0;max-width:880px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.obs{margin-top:6px;font-size:13px;opacity:.85}
 </style>
 </head>
 <body>
 <div class="bar0"><div class="brand"><b>Grade UFSC</b><span>Mapa de pré-requisitos da graduação</span></div><label class="pick"><span>Curso</span><select id="curso"></select></label></div>
 <header class="band top">
-  <div><h1 id="ttl">Grade</h1><p class="sub" id="cur"></p><p class="box lk" id="banner" hidden></p></div>
+  <div><h1 id="ttl">Grade</h1><p class="sub" id="cur"></p><p class="sub obs">Obs.: confira sempre o PDF do currículo do seu curso no CAGR.</p></div>
   <div class="stats" id="stats"></div>
   <div class="bar"><i id="pbar"></i></div>
   <div class="legend"><span style="--c:var(--ok);--b:var(--okbg)">Aprovada</span><span style="--c:var(--bad);--b:var(--badbg)">Reprovada</span><span style="--c:var(--cur);--b:var(--curbg)">Cursando</span><span style="--c:var(--acc)">Disponível agora</span><span style="--c:var(--lil);--b:var(--lilbg)">Bloqueada</span><span style="--c:var(--cur)">Falta carga horária</span><span style="--c:var(--mute)">→N = quantas ela trava</span></div>
@@ -208,7 +209,7 @@ function load(k){
   try{history.replaceState(null,"","#"+c.slug)}catch(e){}
   document.getElementById("ttl").textContent=c.nome;
   document.getElementById("cur").textContent="UFSC · "+c.cur.replace("currículo","Currículo")+" · "+c.total+" h/a · Toque numa disciplina para registrar aprovação, reprovação ou matrícula.";
-  csel.value=k;const bn=document.getElementById("banner");bn.hidden=!c.banner;bn.textContent=c.banner||"";
+  csel.value=k;
   sheet.classList.remove("on");
 }
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
