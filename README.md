@@ -35,6 +35,15 @@ Mapa interativo das disciplinas de cada fase dos cursos de graduação da UFSC, 
 - Ciências Biológicas – Licenciatura (noturno) — currículo 20101
 - Ciências Contábeis (diurno e noturno) — currículo 20191
 - Ciências da Computação — currículo 20071
+- Ciências Econômicas (diurno e noturno) — currículo 20191
+- Ciências Sociais – Bacharelado e Licenciatura (diurno e noturno) — currículo 20071
+- Cinema — currículo 20151
+- Design — currículo 20221
+- Design de Produto — currículo 20191
+- Direito (diurno e noturno) — currículo 20231
+- Educação do Campo — currículo 20092
+- Educação Física – Bacharelado e Licenciatura — currículo 20061
+- Enfermagem — currículo 20221
 
 ## Funcionalidades
 
