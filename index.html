@@ -310,7 +310,7 @@ footer .fb em{font-style:normal;color:var(--ufsc)}
     <div class="callout" role="note"><span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></span><div><b>Obs.: confira sempre o PDF do currículo do seu curso no CAGR.</b><span>O mapa ajuda a planejar, mas o documento oficial é o que vale.</span></div></div>
     <div class="stats" id="stats"></div>
     <div class="bar"><i id="pbar"></i></div>
-    <div class="legend" aria-label="Legenda"><span style="--c:var(--ok);--b:var(--okbg)">Aprovada</span><span style="--c:var(--bad);--b:var(--badbg)">Reprovada</span><span style="--c:var(--cur);--b:var(--curbg)">Cursando</span><span style="--c:var(--acc);--b:var(--accbg)">Disponível agora</span><span style="--c:var(--lil);--b:var(--lilbg)">Bloqueada</span><span class="dash" style="--c:var(--cur)">Falta carga horária</span><span class="ln"><b>→N</b>quantas ela trava</span></div>
+    <div class="legend" aria-label="Legenda"><span style="--c:var(--ok);--b:var(--okbg)">Aprovada</span><span style="--c:var(--bad);--b:var(--badbg)">Reprovada</span><span style="--c:var(--cur);--b:var(--curbg)">Cursando</span><span style="--c:var(--acc);--b:var(--accbg)">Disponível agora</span><span style="--c:var(--lil);--b:var(--lilbg)">Falta pré-requisito</span><span class="dash" style="--c:var(--cur)">Falta carga horária</span><span class="ln"><b>→N</b>quantas ela trava</span></div>
   </div></section>
   <section class="sec map">
     <div class="in sec-hd"><span class="ico sm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7.5 11 16M16 7.5 13 16"/></svg></span><div><p class="eyebrow">Mapa</p><h2>Fases e pré-requisitos</h2></div><button class="mbtn" id="mbtn" type="button" aria-pressed="false" title="Marcar várias de uma vez"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="m8 12 3 3 5-6"/></svg><span>Marcar várias de uma vez</span></button></div>
@@ -407,7 +407,6 @@ function load(k){
   D.forEach(([c,n,h,f,p,ch])=>{M[c]={c,n,h,f,p,ch:ch||0};DEP[c]=[]});
   D.forEach(([c,,,,p])=>new Set(p.flat()).forEach(x=>DEP[x].push(c)));
   S={s:{},o:{},p:{}};try{const v=JSON.parse(localStorage.getItem(KEY));if(v&&v.s)S={s:v.s,o:v.o||{},p:v.p||{}}}catch(e){}
-  fix();
   try{localStorage.setItem("grade-curso",k)}catch(e){}
   try{history.replaceState(null,"","#"+c.slug)}catch(e){}
   document.getElementById("ttl").textContent=c.nome;
@@ -429,8 +428,7 @@ const avail=c=>st(c)!=="ap"&&!missing(c).length&&chOk(c);
 const optName=c=>{if(!isSlot(c))return M[c].n;const f=slotList(c).find(x=>x[0]===S.o[c]);return f?f[1]:M[c].n};
 const board=document.getElementById("board"),sheet=document.getElementById("sheet");
 function cls(c){const s=st(c);return["c",s||(avail(c)?"av":missing(c).length?"bl":"hr"),isSlot(c)?"opt":""].join(" ")}
-function fix(){const out=[];let ch=true;while(ch){ch=false;for(const[c]of D){if(!isPool(c)&&st(c)&&missing(c).length){out.push(c);delete S.s[c];ch=true}}}return out}
-let note="",mini=false;
+let mini=false;
 function render(){
   const h=hours(),ap=D.filter(([c])=>st(c)==="ap").length,av=D.filter(([c])=>avail(c)).length,rp=D.filter(([c])=>st(c)==="rp").length;
   document.getElementById("stats").innerHTML=[[`${h} / ${TOTAL}`,"horas-aula aprovadas"],[`${ap} / ${D.length}`,"disciplinas aprovadas"],[av,"disponíveis para cursar"],[rp,"marcadas como reprovadas"]].map(([b,s])=>`<div class="stat"><b>${b}</b><span>${s}</span></div>`).join("");
@@ -462,7 +460,7 @@ function lines(){
 }
 function rank(){
   const L=D.filter(([c])=>st(c)!=="ap"&&getDesc(c).size).sort((a,b)=>getDesc(b[0]).size-getDesc(a[0]).size||getH(b[0])-getH(a[0])).slice(0,10);
-  const tag=c=>{const s=st(c);return s==="rp"?'<span class="tag rp">Reprovada</span>':s==="cu"?'<span class="tag cu">Cursando</span>':avail(c)?'<span class="tag av">Disponível</span>':'<span class="tag" style="color:var(--lil)">Bloqueada</span>'};
+  const tag=c=>{const s=st(c);return s==="rp"?'<span class="tag rp">Reprovada</span>':s==="cu"?'<span class="tag cu">Cursando</span>':avail(c)?'<span class="tag av">Disponível</span>':'<span class="tag" style="color:var(--lil)">Falta pré-requisito</span>'};
   document.getElementById("rank").innerHTML=L.length?L.map(([c,n,,f])=>`<button class="rk" data-c="${c}"><em>${getDesc(c).size}</em><div><strong>${n}</strong><p>${c} · fase ${f} · cadeia de ${getH(c)} semestres até o fim</p></div>${tag(c)}</button>`).join(""):'<p class="sub">Nenhuma disciplina pendente trava outras. Falta pouco!</p>';
 }
 function preChips(p){return p.length?`<div class="chips">${p.map(g=>Array.isArray(g)?`<span class="or">${g.map(x=>chips1(x)).join('<i>ou</i>')}</span>`:chips1(g)).join("")}</div>`:'<div class="sub">Nenhum</div>'}
@@ -471,11 +469,11 @@ function chips(list){return list.length?`<div class="chips">${list.map(x=>`<butt
 function panel(){
   const m=M[sel],s=st(sel),miss=missing(sel),d=getDesc(sel),isOpt=isSlot(sel);
   const P=isPool(sel),sum=P?poolSum(sel):0,pool=P?`<p class="lbl">Marque as optativas aprovadas (${sum} / ${m.h} h/a)</p><div class="chips">${OPTS.filter(o=>o[2]).map(([c,n,h])=>`<button class="chip${(S.p[sel]||[]).includes(c)?" on":""}" data-o="${c}">${(S.p[sel]||[]).includes(c)?"✓ ":""}${n}<small>${h}h</small></button>`).join("")}</div>`:"";
-  const lock=!!miss.length,hrs=hours(),chm=!P&&s!=="ap"&&m.ch>hrs;const sit=P?(sum>=m.h?"Carga de optativas completa.":`Faltam ${m.h-sum} h/a de optativas.`):s==="ap"?"Aprovada.":lock?`Bloqueada: não dá para marcar até cumprir ${miss.join(", ")}.`:chm?`Pré-requisitos cumpridos. Para se matricular, o currículo também exige ${m.ch} h/a cursadas (você marcou ${hrs}).`:"Disponível para cursar.";
+  const lock=!!miss.length,hrs=hours(),chm=!P&&s!=="ap"&&m.ch>hrs;const sit=P?(sum>=m.h?"Carga de optativas completa.":`Faltam ${m.h-sum} h/a de optativas.`):s==="ap"?"Aprovada.":lock?`Falta pré-requisito: ${miss.join(", ")}. Se você validou ou tem quebra de pré-requisito, pode marcar mesmo assim.`:chm?`Pré-requisitos cumpridos. Para se matricular, o currículo também exige ${m.ch} h/a cursadas (você marcou ${hrs}).`:"Disponível para cursar.";
   sheet.innerHTML=`<div class="sh"><div><p class="sub" style="margin:0 0 4px">${P?"Optativas":isOpt?slotLbl(sel):sel} · fase ${m.f} · ${m.h} h/a</p><h2>${optName(sel)}</h2><p class="mini-st">${sit}</p></div><div class="shb"><button class="x" id="mini" aria-label="${mini?"Expandir":"Minimizar"}" aria-expanded="${!mini}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="${mini?"M3 10l5-5 5 5":"M3 6l5 5 5-5"}" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button><button class="x" id="close" aria-label="Fechar">×</button></div></div>
-  ${P?"":`<div class="btns">`}${P?"":[["ap","Aprovada"],["rp","Reprovada"],["cu","Cursando"],["","Não cursada"]].map(([k,t])=>`<button class="${k}${s===k?" on":""}" data-s="${k}"${lock&&k?" disabled":""}>${t}</button>`).join("")+"</div>"}
+  ${P?"":`<div class="btns">`}${P?"":[["ap","Aprovada"],["rp","Reprovada"],["cu","Cursando"],["","Não cursada"]].map(([k,t])=>`<button class="${k}${s===k?" on":""}" data-s="${k}">${t}</button>`).join("")+"</div>"}
   ${isOpt?`<p class="lbl">Qual disciplina?</p><select id="osel"><option value="">Escolher…</option>${slotList(sel).map(([c,n])=>`<option value="${c}"${S.o[sel]===c?" selected":""}>${n}</option>`).join("")}</select>`:""}
-  ${note?`<div class="box lk">${note}</div>`:""}<div class="box${lock?" lk":""}">${sit}</div>
+  <div class="box${lock?" lk":""}">${sit}</div>
   ${m.ch&&!chm?`<div class="box">Exige ${m.ch} h/a cursadas para matrícula.</div>`:""}${(C[K].notes||{})[sel]?`<div class="box">${C[K].notes[sel]}</div>`:""}
   ${pool}<p class="lbl">Pré-requisitos</p>${preChips(m.p)}
   <p class="lbl">Libera diretamente</p>${chips(DEP[sel].filter(x=>hard(sel,x)))}${DEP[sel].some(x=>!hard(sel,x))?`<p class="lbl">Também serve de alternativa ("ou") para</p>${chips(DEP[sel].filter(x=>!hard(sel,x)))}`:""}
@@ -484,9 +482,9 @@ function panel(){
 }
 const pick=c=>{sel=sel===c&&sheet.classList.contains("on")?sel:c;render();const el=document.getElementById("n-"+c);el&&el.scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"})};
 document.addEventListener("click",e=>{
-  const o=e.target.closest("[data-o]");if(o&&sel&&isPool(sel)){const a=S.p[sel]||(S.p[sel]=[]),i=a.indexOf(o.dataset.o);if(i<0)a.push(o.dataset.o);else a.splice(i,1);const r=fix();note=r.length?`Também foram desmarcadas, por perderem o pré-requisito: ${r.map(optName).join(", ")}.`:"";save();render();note="";return}
+  const o=e.target.closest("[data-o]");if(o&&sel&&isPool(sel)){const a=S.p[sel]||(S.p[sel]=[]),i=a.indexOf(o.dataset.o);if(i<0)a.push(o.dataset.o);else a.splice(i,1);save();render();return}
   const t=e.target.closest("[data-c]");if(t){pick(t.dataset.c);return}
-  const b=e.target.closest("[data-s]");if(b&&sel){const v=b.dataset.s;if(v&&missing(sel).length)return;if(v)S.s[sel]=v;else delete S.s[sel];const r=fix();note=r.length?`Também foram desmarcadas, por perderem o pré-requisito: ${r.map(optName).join(", ")}.`:"";save();render();note="";return}
+  const b=e.target.closest("[data-s]");if(b&&sel){const v=b.dataset.s;if(v)S.s[sel]=v;else delete S.s[sel];save();render();return}
   if(e.target.closest("#mini")||(mini&&e.target.closest(".sh")&&!e.target.closest("#close"))){mini=!mini;panel();return}
   if(e.target.closest("#close")){sel=null;sheet.classList.remove("on");render()}
 });
@@ -494,7 +492,7 @@ sheet.addEventListener("change",e=>{if(e.target.id==="osel"){S.o[sel]=e.target.v
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&sel){sel=null;sheet.classList.remove("on");render()}});
 const msg=document.getElementById("msg");
 document.getElementById("cp").onclick=async()=>{const t=JSON.stringify(S);try{await navigator.clipboard.writeText(t);msg.textContent="Copiado."}catch(e){document.getElementById("imp").value=t;msg.textContent="Copie o texto acima."}};
-document.getElementById("im").onclick=()=>{try{const v=JSON.parse(document.getElementById("imp").value);if(!v.s)throw 0;S={s:v.s,o:v.o||{},p:v.p||{}};fix();save();render();msg.textContent="Importado."}catch(e){msg.textContent="Código inválido."}};
+document.getElementById("im").onclick=()=>{try{const v=JSON.parse(document.getElementById("imp").value);if(!v.s)throw 0;S={s:v.s,o:v.o||{},p:v.p||{}};save();render();msg.textContent="Importado."}catch(e){msg.textContent="Código inválido."}};
 let armed=false;const rs=document.getElementById("rs");
 rs.onclick=()=>{if(!armed){armed=true;rs.textContent="Toque de novo para confirmar";setTimeout(()=>{armed=false;rs.textContent="Apagar progresso deste curso"},4000);return}S={s:{},o:{},p:{}};save();sel=null;sheet.classList.remove("on");armed=false;rs.textContent="Apagar progresso deste curso";render()};
 const ro=new ResizeObserver(()=>requestAnimationFrame(lines));ro.observe(board);
@@ -502,14 +500,12 @@ document.fonts&&document.fonts.ready.then(lines);
 csel.addEventListener("change",()=>{load(csel.value);render()});
 window.addEventListener("hashchange",()=>{const k=fromHash();if(k&&k!==K){load(k);render()}});
 load(K);render();
-// ---- Interface: seletor de curso com busca, marcar várias, ranking compacto e avisos ----
 const $=id=>document.getElementById(id);
 const norm=t=>t.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
 const ICO={ok:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',warn:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>'};
 let tmr;const toast=(kind,title,text)=>{const t=$("toast");t.className="toast "+kind;$("tico").innerHTML=ICO[kind]||ICO.ok;$("tt").textContent=title;$("tp").textContent=text||"";$("tp").hidden=!text;requestAnimationFrame(()=>t.classList.add("on"));clearTimeout(tmr);tmr=setTimeout(()=>t.classList.remove("on"),kind==="warn"?7000:4000)};
 $("tx").onclick=()=>$("toast").classList.remove("on");
 
-// Seletor de curso
 const cdlg=$("cdlg"),cq=$("cq"),clist=$("clist");
 const syncLab=()=>{$("clab").textContent=C[K].nome};
 new MutationObserver(syncLab).observe($("ttl"),{childList:true,characterData:true,subtree:true});syncLab();
@@ -528,7 +524,6 @@ cdlg.addEventListener("click",e=>{const o=e.target.closest("[data-k]");if(o){cho
 cq.addEventListener("input",listCursos);
 cq.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();const o=clist.querySelector("[data-k]");o&&chooseC(o.dataset.k)}});
 
-// Marcar várias
 let multi=false;const picked=new Set();
 const mbtn=$("mbtn"),mbar=$("mbar");
 const paint=()=>{board.classList.toggle("multi",multi);board.querySelectorAll(".c").forEach(b=>b.classList.toggle("pk",picked.has(b.dataset.c)));
@@ -546,17 +541,13 @@ board.addEventListener("click",e=>{if(!multi)return;
   picked.has(c)?picked.delete(c):picked.add(c);paint()},true);
 const NOMES={ap:["aprovada","aprovadas"],cu:["cursando","cursando"],rp:["reprovada","reprovadas"]};
 mbar.addEventListener("click",e=>{const b=e.target.closest("[data-b]");if(!b||!picked.size)return;const v=b.dataset.b;
-  const list=[...picked].filter(c=>!isPool(c)).sort((a,b)=>M[a].f-M[b].f);let done=0;const left=new Set(list);
-  if(!v){list.forEach(c=>{if(S.s[c]){delete S.s[c];done++}});left.clear()}
-  else{let prog=true;while(prog){prog=false;for(const c of[...left]){if(!missing(c).length){if(S.s[c]!==v)done++;S.s[c]=v;left.delete(c);prog=true}}}}
-  const r=fix();save();picked.clear();render();paint();
-  const out=[...left].map(optName),lost=r.map(optName);
-  if(!v)toast(lost.length?"warn":"ok",`${done} disciplina${done===1?"":"s"} desmarcada${done===1?"":"s"}`,lost.length?`Também foram desmarcadas, por perderem o pré-requisito: ${lost.join(", ")}.`:"");
-  else toast(out.length?"warn":"ok",`${done} disciplina${done===1?"":"s"} marcada${done===1?"":"s"} como ${NOMES[v][done===1?0:1]}`,out.length?`Ficaram de fora por falta de pré-requisito: ${out.join(", ")}.`:"")});
+  const list=[...picked].filter(c=>!isPool(c));let done=0;
+  list.forEach(c=>{if(!v){if(S.s[c]){delete S.s[c];done++}}else{if(S.s[c]!==v)done++;S.s[c]=v}});
+  save();picked.clear();render();paint();
+  toast("ok",v?`${done} disciplina${done===1?"":"s"} marcada${done===1?"":"s"} como ${NOMES[v][done===1?0:1]}`:`${done} disciplina${done===1?"":"s"} desmarcada${done===1?"":"s"}`,"")});
 document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(cdlg.classList.contains("on"))closeC();else if(multi)setMulti(false)});
 csel.addEventListener("change",()=>{if(multi)setMulti(false)});
 
-// Ranking compacto
 const rk=$("rank"),rmore=$("rmore");
 const syncRank=()=>{const n=rk.querySelectorAll(".rk").length;rmore.hidden=n<=6;rmore.textContent=rk.classList.contains("all")?"Mostrar menos":`Ver todas (${n})`};
 new MutationObserver(syncRank).observe(rk,{childList:true});syncRank();

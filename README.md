@@ -72,8 +72,7 @@ Mapa interativo das disciplinas de cada fase dos cursos de graduação da UFSC, 
 ## Funcionalidades
 
 - Marcar cada disciplina como aprovada, reprovada, cursando ou não cursada
-- Disciplinas com pré-requisito pendente ficam bloqueadas e não podem ser marcadas
-- Ao desmarcar um pré-requisito, as dependentes são desmarcadas em cadeia
+- Disciplinas com pré-requisito pendente ficam em vermelho, mas podem ser marcadas (validação ou quebra de pré-requisito)
 - Destaque da cadeia de pré-requisitos e do que cada disciplina libera
 - Lista de gargalos: disciplinas pendentes que mais travam o curso
 - Pré-requisitos por carga horária (ex.: estágio, TCC)
