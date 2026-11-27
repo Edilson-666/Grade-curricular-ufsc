@@ -26,7 +26,26 @@
 })();
 </script>
 <meta name="theme-color" content="#000000">
-<title>Grade Curricular UFSC</title>
+<title>Grade Curricular UFSC – Mapa de pré-requisitos dos cursos de graduação</title>
+<meta name="description" content="Grade curricular e pré-requisitos dos cursos de graduação da UFSC em um mapa interativo. Marque disciplinas aprovadas, veja o que pode cursar e quais matérias mais travam o curso.">
+<meta name="keywords" content="grade curricular UFSC, pré-requisitos UFSC, currículo UFSC, CAGR, fluxograma UFSC, disciplinas UFSC, matriz curricular UFSC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://edilson-666.github.io/Grade-curricular-ufsc/">
+<link rel="sitemap" type="application/xml" href="sitemap.xml">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Grade UFSC">
+<meta property="og:title" content="Grade Curricular UFSC – Mapa de pré-requisitos">
+<meta property="og:description" content="Grade curricular e pré-requisitos dos cursos de graduação da UFSC em um mapa interativo. Marque disciplinas aprovadas, veja o que pode cursar e quais matérias mais travam o curso.">
+<meta property="og:url" content="https://edilson-666.github.io/Grade-curricular-ufsc/">
+<meta property="og:image" content="https://edilson-666.github.io/Grade-curricular-ufsc/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Grade UFSC – mapa de pré-requisitos dos cursos de graduação">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Grade Curricular UFSC – Mapa de pré-requisitos">
+<meta name="twitter:description" content="Grade curricular e pré-requisitos dos cursos de graduação da UFSC em um mapa interativo. Marque disciplinas aprovadas, veja o que pode cursar e quais matérias mais travam o curso.">
+<meta name="twitter:image" content="https://edilson-666.github.io/Grade-curricular-ufsc/og-image.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://edilson-666.github.io/Grade-curricular-ufsc/#site", "url": "https://edilson-666.github.io/Grade-curricular-ufsc/", "name": "Grade UFSC", "alternateName": ["Grade Curricular UFSC", "Mapa de pré-requisitos UFSC"], "inLanguage": "pt-BR", "description": "Grade curricular e pré-requisitos dos cursos de graduação da UFSC em um mapa interativo. Marque disciplinas aprovadas, veja o que pode cursar e quais matérias mais travam o curso."}, {"@type": "WebApplication", "name": "Grade UFSC – Mapa de pré-requisitos", "url": "https://edilson-666.github.io/Grade-curricular-ufsc/", "applicationCategory": "EducationalApplication", "operatingSystem": "Web, Android, iOS", "inLanguage": "pt-BR", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "BRL"}, "description": "Grade curricular e pré-requisitos dos cursos de graduação da UFSC em um mapa interativo. Marque disciplinas aprovadas, veja o que pode cursar e quais matérias mais travam o curso.", "image": "https://edilson-666.github.io/Grade-curricular-ufsc/og-image.png", "about": {"@type": "CollegeOrUniversity", "name": "Universidade Federal de Santa Catarina", "alternateName": "UFSC", "sameAs": "https://ufsc.br"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Como ver a grade curricular do meu curso da UFSC?", "acceptedAnswer": {"@type": "Answer", "text": "Escolha o curso na busca do topo. O mapa mostra todas as disciplinas por fase, com as linhas ligando cada pré-requisito."}}, {"@type": "Question", "name": "Como saber quais disciplinas posso cursar agora?", "acceptedAnswer": {"@type": "Answer", "text": "Marque as disciplinas aprovadas ou validadas. As que ficam disponíveis aparecem destacadas em azul e o contador mostra quantas você pode cursar."}}, {"@type": "Question", "name": "Quais disciplinas mais travam o curso?", "acceptedAnswer": {"@type": "Answer", "text": "A seção Disciplinas que mais travam o curso lista as matérias pendentes ordenadas por quantas outras dependem delas."}}, {"@type": "Question", "name": "Meu progresso fica salvo?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. As marcações ficam salvas automaticamente no navegador, separadas por curso, e o site pode ser instalado como aplicativo."}}]}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -55,6 +74,8 @@
 --lil:light-dark(#dc2626,#f05252);
 --lilbg:light-dark(#fde6e6,#220b0d);
 --dn:light-dark(#6d28d9,#8b7bff);
+--av:light-dark(#2563eb,#4d8dff);
+--avbg:light-dark(#e3ecff,#0b1a3a);
 --gold:light-dark(#b7791f,#f5c542);
 --ufsc:light-dark(#0855a1,#3d8fe0);
 --gut:max(4vw,16px);--max:1240px;--edge:max(var(--gut),calc((100vw - var(--max))/2 + var(--gut)))}
@@ -182,7 +203,7 @@ button{-webkit-tap-highlight-color:transparent}
 .c small{display:flex;justify-content:space-between;gap:6px;font-size:11px;color:var(--mute)}
 .c small>span:first-child{font-weight:700;letter-spacing:.02em;color:color-mix(in srgb,var(--st) 85%,var(--ink))}
 .c strong{display:block;font-size:12.5px;font-weight:600;line-height:1.3;margin-top:3px}
-.c.av{--st:var(--ink);background:color-mix(in srgb,var(--ink) 6%,var(--card))}
+.c.av{--st:var(--av);background:color-mix(in srgb,var(--av) 14%,var(--card));border-color:color-mix(in srgb,var(--av) 80%,transparent);box-shadow:0 0 0 1px color-mix(in srgb,var(--av) 25%,transparent),0 6px 18px -10px var(--av)}
 .c.ap{--st:var(--ok)}
 .c.va{--st:var(--va)}
 .c.rp{--st:var(--bad)}
@@ -258,7 +279,7 @@ body.painting .hero,body.painting footer{visibility:hidden}
 .rk strong{display:block;font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rk p{margin:0;font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tag{--t:var(--mute);font-size:11px;font-weight:700;white-space:nowrap;color:var(--t);padding:4px 9px;border-radius:99px;background:color-mix(in srgb,var(--t) 13%,transparent)}
-.tag.av{--t:var(--ink)}.tag.rp{--t:var(--bad)}.tag.cu{--t:var(--cur)}
+.tag.av{--t:var(--av)}.tag.rp{--t:var(--bad)}.tag.cu{--t:var(--cur)}
 .tag[style*="--lil"]{--t:var(--lil)}
 .rmore{margin-top:10px;min-height:40px;padding:0 16px;border-radius:99px;border:1px solid var(--line2);background:none;color:var(--ink);font:700 13.5px Inter,Roboto,sans-serif;cursor:pointer}
 .rmore:hover{border-color:var(--mute)}
@@ -334,6 +355,10 @@ textarea{border-radius:18px;padding:14px 16px;resize:vertical}
 .act.warn:hover{border-color:var(--lil)}
 @media(max-width:640px){.prog .act{width:100%}}
 
+/* ---------- Lista de cursos (SEO) ---------- */
+.clinks{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.clinks a{display:inline-block;padding:6px 12px;border-radius:99px;border:1px solid var(--line2);background:var(--panel);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;transition:border-color .2s}
+.clinks a:hover{border-color:var(--av)}
 /* ---------- Rodapé ---------- */
 footer{position:relative;overflow:hidden;border-top:1px solid var(--line);background:var(--paper)}
 footer::before,footer::after{content:"";position:absolute;bottom:0;width:110px;height:110px;pointer-events:none;background:linear-gradient(45deg,transparent 0 12%,#f5c542 12% 20%,transparent 20% 24%,#1fa855 24% 32%,transparent 32% 36%,#0855a1 36% 44%,transparent 44%)}
@@ -426,7 +451,7 @@ img{-webkit-user-drag:none}
 @media(prefers-color-scheme:light){
 :root:not([data-theme=dark]) .c{background:color-mix(in srgb,var(--st) 13%,#fff);border-color:color-mix(in srgb,var(--st) 70%,#fff);box-shadow:0 1px 2px #0f172a12}
 :root:not([data-theme=dark]) .c small>span:first-child{color:color-mix(in srgb,var(--st) 75%,#000)}
-:root:not([data-theme=dark]) .c.av{background:#fff;border-color:#9aa1ad;box-shadow:0 2px 8px -3px #0f172a26}
+:root:not([data-theme=dark]) .c.av{background:color-mix(in srgb,var(--av) 12%,#fff);border-color:var(--av);box-shadow:0 2px 10px -4px color-mix(in srgb,var(--av) 60%,transparent)}
 :root:not([data-theme=dark]) .c.bl{background:color-mix(in srgb,var(--lil) 9%,#fff)}
 :root:not([data-theme=dark]) .c.bl strong{color:#7f1d1d}
 :root:not([data-theme=dark]) .c.hr{border-color:var(--cur)}
@@ -447,7 +472,7 @@ img{-webkit-user-drag:none}
 }
 :root[data-theme=light] .c{background:color-mix(in srgb,var(--st) 13%,#fff);border-color:color-mix(in srgb,var(--st) 70%,#fff);box-shadow:0 1px 2px #0f172a12}
 :root[data-theme=light] .c small>span:first-child{color:color-mix(in srgb,var(--st) 75%,#000)}
-:root[data-theme=light] .c.av{background:#fff;border-color:#9aa1ad;box-shadow:0 2px 8px -3px #0f172a26}
+:root[data-theme=light] .c.av{background:color-mix(in srgb,var(--av) 12%,#fff);border-color:var(--av);box-shadow:0 2px 10px -4px color-mix(in srgb,var(--av) 60%,transparent)}
 :root[data-theme=light] .c.bl{background:color-mix(in srgb,var(--lil) 9%,#fff)}
 :root[data-theme=light] .c.bl strong{color:#7f1d1d}
 :root[data-theme=light] .c.hr{border-color:var(--cur)}
@@ -488,7 +513,7 @@ img{-webkit-user-drag:none}
     <div class="callout" role="note"><span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></span><div><b>Obs.: confira sempre o PDF do currículo do seu curso no CAGR.</b><span>O mapa ajuda a planejar, mas o documento oficial é o que vale.</span></div></div>
     <div class="stats" id="stats"></div>
     <div class="bar"><i id="pbar"></i></div>
-    <div class="legend" aria-label="Legenda"><span style="--c:var(--ok);--b:var(--okbg)">Aprovada</span><span style="--c:var(--va);--b:var(--vabg)">Validada</span><span style="--c:var(--bad);--b:var(--badbg)">Reprovada</span><span style="--c:var(--cur);--b:var(--curbg)">Cursando</span><span style="--c:var(--ink)">Disponível agora</span><span style="--c:var(--lil);--b:var(--lilbg)">Falta pré-requisito</span><span class="dash" style="--c:var(--cur)">Falta carga horária</span><span class="ln"><b>→N</b>quantas ela trava</span></div>
+    <div class="legend" aria-label="Legenda"><span style="--c:var(--ok);--b:var(--okbg)">Aprovada</span><span style="--c:var(--va);--b:var(--vabg)">Validada</span><span style="--c:var(--bad);--b:var(--badbg)">Reprovada</span><span style="--c:var(--cur);--b:var(--curbg)">Cursando</span><span style="--c:var(--av);--b:var(--avbg)">Disponível agora</span><span style="--c:var(--lil);--b:var(--lilbg)">Falta pré-requisito</span><span class="dash" style="--c:var(--cur)">Falta carga horária</span><span class="ln"><b>→N</b>quantas ela trava</span></div>
   </div></section>
   <section class="sec map">
     <div class="in sec-hd"><span class="ico sm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7.5 11 16M16 7.5 13 16"/></svg></span><div><p class="eyebrow">Mapa</p><h2>Fases e pré-requisitos</h2></div><button class="mbtn" id="mbtn" type="button" aria-pressed="false" title="Marcar várias de uma vez"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="m8 12 3 3 5-6"/></svg><span>Marcar várias de uma vez</span></button></div>
@@ -518,6 +543,11 @@ img{-webkit-user-drag:none}
     <div hidden><button id="cp" type="button"></button><textarea id="imp"></textarea><button id="im" type="button"></button><span id="msg"></span></div>
   </div></section>
 </main>
+<section class="sec" aria-labelledby="todos-cursos"><div class="in">
+    <div class="sec-hd"><span class="ico sm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span><div><p class="eyebrow">Cursos</p><h2 id="todos-cursos">Grades curriculares da UFSC</h2></div></div>
+    <p class="sub lead">Página de cada curso com todas as disciplinas por fase, carga horária e pré-requisitos.</p>
+    <!--CURSOS-SEO--><ul class="clinks"><li><a href="cursos/administracao-diurno.html">Administração (diurno)</a></li><li><a href="cursos/administracao-noturno.html">Administração (noturno)</a></li><li><a href="cursos/agronomia.html">Agronomia</a></li><li><a href="cursos/animacao.html">Animação</a></li><li><a href="cursos/antropologia.html">Antropologia</a></li><li><a href="cursos/arquitetura-e-urbanismo.html">Arquitetura e Urbanismo</a></li><li><a href="cursos/arquivologia.html">Arquivologia</a></li><li><a href="cursos/artes-cenicas.html">Artes Cênicas</a></li><li><a href="cursos/biblioteconomia-noturno.html">Biblioteconomia (noturno)</a></li><li><a href="cursos/ciencia-da-informacao.html">Ciência da Informação</a></li><li><a href="cursos/ciencia-de-dados.html">Ciência de Dados</a></li><li><a href="cursos/ciencia-e-tecnologia-de-alimentos.html">Ciência e Tecnologia de Alimentos</a></li><li><a href="cursos/ciencias-biologicas-bacharelado-diurno.html">Ciências Biológicas – Bacharelado (diurno)</a></li><li><a href="cursos/ciencias-biologicas-licenciatura-diurno.html">Ciências Biológicas – Licenciatura (diurno)</a></li><li><a href="cursos/ciencias-biologicas-licenciatura-noturno.html">Ciências Biológicas – Licenciatura (noturno)</a></li><li><a href="cursos/ciencias-contabeis-diurno.html">Ciências Contábeis (diurno)</a></li><li><a href="cursos/ciencias-contabeis-noturno.html">Ciências Contábeis (noturno)</a></li><li><a href="cursos/ciencias-da-computacao.html">Ciências da Computação</a></li><li><a href="cursos/ciencias-economicas-diurno.html">Ciências Econômicas (diurno)</a></li><li><a href="cursos/ciencias-economicas-noturno.html">Ciências Econômicas (noturno)</a></li><li><a href="cursos/ciencias-sociais-bacharelado-diurno.html">Ciências Sociais – Bacharelado (diurno)</a></li><li><a href="cursos/ciencias-sociais-bacharelado-noturno.html">Ciências Sociais – Bacharelado (noturno)</a></li><li><a href="cursos/ciencias-sociais-licenciatura-diurno.html">Ciências Sociais – Licenciatura (diurno)</a></li><li><a href="cursos/ciencias-sociais-licenciatura-noturno.html">Ciências Sociais – Licenciatura (noturno)</a></li><li><a href="cursos/cinema.html">Cinema</a></li><li><a href="cursos/design.html">Design</a></li><li><a href="cursos/design-de-produto.html">Design de Produto</a></li><li><a href="cursos/direito-diurno.html">Direito (diurno)</a></li><li><a href="cursos/direito-noturno.html">Direito (noturno)</a></li><li><a href="cursos/educacao-do-campo.html">Educação do Campo</a></li><li><a href="cursos/educacao-fisica-bacharelado.html">Educação Física – Bacharelado</a></li><li><a href="cursos/educacao-fisica-licenciatura.html">Educação Física – Licenciatura</a></li><li><a href="cursos/enfermagem.html">Enfermagem</a></li><li><a href="cursos/engenharia-civil.html">Engenharia Civil</a></li><li><a href="cursos/engenharia-de-alimentos.html">Engenharia de Alimentos</a></li><li><a href="cursos/engenharia-de-aquicultura.html">Engenharia de Aquicultura</a></li><li><a href="cursos/engenharia-de-controle-e-automacao.html">Engenharia de Controle e Automação</a></li><li><a href="cursos/engenharia-de-materiais.html">Engenharia de Materiais</a></li><li><a href="cursos/engenharia-de-producao.html">Engenharia de Produção</a></li><li><a href="cursos/engenharia-eletronica.html">Engenharia Eletrônica</a></li><li><a href="cursos/engenharia-eletrica.html">Engenharia Elétrica</a></li><li><a href="cursos/engenharia-mecanica.html">Engenharia Mecânica</a></li><li><a href="cursos/engenharia-quimica.html">Engenharia Química</a></li><li><a href="cursos/engenharia-sanitaria-e-ambiental.html">Engenharia Sanitária e Ambiental</a></li><li><a href="cursos/farmacia.html">Farmácia</a></li><li><a href="cursos/filosofia-bacharelado-noturno.html">Filosofia – Bacharelado (noturno)</a></li><li><a href="cursos/filosofia-licenciatura.html">Filosofia – Licenciatura</a></li><li><a href="cursos/fisica-bacharelado.html">Física – Bacharelado</a></li><li><a href="cursos/fisica-licenciatura-noturno.html">Física – Licenciatura (noturno)</a></li><li><a href="cursos/fonoaudiologia.html">Fonoaudiologia</a></li><li><a href="cursos/geografia-bacharelado-diurno.html">Geografia – Bacharelado (diurno)</a></li><li><a href="cursos/geografia-bacharelado-noturno.html">Geografia – Bacharelado (noturno)</a></li><li><a href="cursos/geografia-licenciatura-diurno.html">Geografia – Licenciatura (diurno)</a></li><li><a href="cursos/geografia-licenciatura-noturno.html">Geografia – Licenciatura (noturno)</a></li><li><a href="cursos/geologia.html">Geologia</a></li><li><a href="cursos/historia-bacharelado-matutino.html">História – Bacharelado (matutino)</a></li><li><a href="cursos/historia-bacharelado-noturno.html">História – Bacharelado (noturno)</a></li><li><a href="cursos/historia-licenciatura-matutino.html">História – Licenciatura (matutino)</a></li><li><a href="cursos/historia-licenciatura-noturno.html">História – Licenciatura (noturno)</a></li><li><a href="cursos/jornalismo.html">Jornalismo</a></li><li><a href="cursos/letras-alemao-bacharelado.html">Letras Alemão – Bacharelado</a></li><li><a href="cursos/letras-alemao-licenciatura.html">Letras Alemão – Licenciatura</a></li><li><a href="cursos/letras-espanhol-bacharelado.html">Letras Espanhol – Bacharelado</a></li><li><a href="cursos/letras-espanhol-licenciatura.html">Letras Espanhol – Licenciatura</a></li><li><a href="cursos/letras-frances-bacharelado.html">Letras Francês – Bacharelado</a></li><li><a href="cursos/letras-frances-licenciatura.html">Letras Francês – Licenciatura</a></li><li><a href="cursos/letras-ingles-bacharelado.html">Letras Inglês – Bacharelado</a></li><li><a href="cursos/letras-ingles-licenciatura.html">Letras Inglês – Licenciatura</a></li><li><a href="cursos/letras-libras-bacharelado.html">Letras Libras – Bacharelado</a></li><li><a href="cursos/letras-libras-licenciatura.html">Letras Libras – Licenciatura</a></li><li><a href="cursos/licenciatura-intercultural-indigena-do-sul-da-mata-atlantica.html">Licenciatura Intercultural Indígena do Sul da Mata Atlântica</a></li><li><a href="cursos/matematica-bacharelado.html">Matemática – Bacharelado</a></li><li><a href="cursos/matematica-licenciatura.html">Matemática – Licenciatura</a></li><li><a href="cursos/medicina.html">Medicina</a></li><li><a href="cursos/meteorologia.html">Meteorologia</a></li><li><a href="cursos/museologia.html">Museologia</a></li><li><a href="cursos/nutricao.html">Nutrição</a></li><li><a href="cursos/oceanografia.html">Oceanografia</a></li><li><a href="cursos/odontologia.html">Odontologia</a></li><li><a href="cursos/pedagogia.html">Pedagogia</a></li><li><a href="cursos/quimica-tecnologica-bacharelado.html">Química Tecnológica – Bacharelado</a></li><li><a href="cursos/quimica-bacharelado.html">Química – Bacharelado</a></li><li><a href="cursos/quimica-licenciatura.html">Química – Licenciatura</a></li><li><a href="cursos/relacoes-internacionais.html">Relações Internacionais</a></li><li><a href="cursos/servico-social-diurno.html">Serviço Social (diurno)</a></li><li><a href="cursos/servico-social-noturno.html">Serviço Social (noturno)</a></li><li><a href="cursos/sistemas-de-informacao-noturno.html">Sistemas de Informação (noturno)</a></li><li><a href="cursos/zootecnia.html">Zootecnia</a></li></ul><!--/CURSOS-SEO-->
+  </div></section>
 <footer><div class="in"><p>Dados extraídos dos currículos oficiais publicados no CAGR/UFSC (consulta em novembro de 2026). Projeto independente, sem vínculo oficial com a UFSC. Confira sempre com a coordenação do seu curso antes de planejar a matrícula.</p><span class="fb"><img src="brasao-ufsc.webp" alt="" width="23" height="26">Grade <em>UFSC</em></span></div></footer>
 <aside class="sheet" id="sheet" aria-live="polite"></aside>
 <div class="cdlg" id="cdlg" role="dialog" aria-modal="true" aria-labelledby="cdlg-t">

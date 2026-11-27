@@ -96,3 +96,9 @@ Settings → Pages → Source: `Deploy from a branch` → Branch: `main` / `(roo
 ## Observações
 
 As equivalências com códigos de currículos antigos não são consideradas. Os dados foram extraídos dos PDFs oficiais do currículo (CAGR/UFSC).
+
+## SEO
+
+- Página estática por curso em `cursos/` (título, descrição, tabela de disciplinas por fase, pré-requisitos, optativas, dados estruturados `Course` e `BreadcrumbList`) e índice em `cursos/index.html`
+- `sitemap.xml`, `robots.txt`, URL canônica, Open Graph/Twitter com `og-image.png` e dados estruturados `WebSite`, `WebApplication` e `FAQPage` na página principal
+- Para atualizar depois de mudar cursos no `index.html`: `python3 tools/gerar_paginas.py` (precisa do Node.js)
