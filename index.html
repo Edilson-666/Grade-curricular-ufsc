@@ -709,7 +709,9 @@ const phKey=()=>"grade-fase-"+C[K].key;
 const loadPh=()=>{try{myPh=+localStorage.getItem(phKey())||0}catch(e){myPh=0}};
 const cols=()=>[...board.querySelectorAll(".col")];
 const padL=()=>parseFloat(getComputedStyle(board).paddingLeft)||0;
+let phLock=0,phLockT=0;
 function syncActive(){const cs=cols();if(!cs.length)return;const x=wrapEl.scrollLeft+padL()+60;let a=0;cs.forEach((c,i)=>{if(c.offsetLeft<=x)a=i});
+  if(phLock)a=phLock-1;else if(wrapEl.scrollLeft+wrapEl.clientWidth>=wrapEl.scrollWidth-4&&wrapEl.scrollLeft>0)a=cs.length-1;
   const bs=phnav.querySelectorAll(".php");bs.forEach((b,i)=>{b.classList.toggle("on",i===a);b.setAttribute("aria-current",i===a?"true":"false")});
   const on=bs[a];if(on&&phnav.scrollWidth>phnav.clientWidth)phnav.scrollLeft=on.offsetLeft-phnav.clientWidth/2+on.offsetWidth/2}
 function paintPh(){const cs=cols();if(myPh>cs.length)myPh=0;
@@ -718,7 +720,8 @@ function paintPh(){const cs=cols();if(myPh>cs.length)myPh=0;
   phnav.querySelectorAll(".php").forEach(b=>b.classList.toggle("me",+b.dataset.ph===myPh));
   myphEl.hidden=!myPh;if(myPh)myphEl.innerHTML=`<span class="dot" aria-hidden="true"></span>Você está na ${myPh}ª fase<button type="button" data-goph="${myPh}">Ver no mapa</button>`;
   syncActive()}
-const goPh=n=>{const c=cols()[n-1];if(!c)return;wrapEl.scrollTo({left:Math.max(0,c.offsetLeft-padL()),behavior:"smooth"})};
+const goPh=n=>{const c=cols()[n-1];if(!c)return;phLock=n;clearTimeout(phLockT);phLockT=setTimeout(()=>{phLock=0},900);syncActive();wrapEl.scrollTo({left:Math.max(0,c.offsetLeft-padL()),behavior:"smooth"})};
+["touchstart","wheel","pointerdown"].forEach(ev=>wrapEl.addEventListener(ev,()=>{phLock=0},{passive:true}));
 let rafS=0;wrapEl.addEventListener("scroll",()=>{if(!rafS)rafS=requestAnimationFrame(()=>{rafS=0;syncActive()})},{passive:true});
 phnav.addEventListener("click",e=>{const b=e.target.closest("[data-ph]");if(b)goPh(+b.dataset.ph)});
 myphEl.addEventListener("click",e=>{const b=e.target.closest("[data-goph]");if(!b)return;document.querySelector(".map").scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>goPh(+b.dataset.goph),250)});
