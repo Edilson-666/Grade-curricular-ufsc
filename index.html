@@ -363,6 +363,10 @@ textarea{border-radius:18px;padding:14px 16px;resize:vertical}
 .clinks a{display:inline-block;padding:6px 12px;border-radius:99px;border:1px solid var(--line2);background:var(--panel);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;transition:border-color .2s}
 .clinks a:hover{border-color:var(--av)}
 /* ---------- Rodapé ---------- */
+footer .ulx{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+footer .ulx-b{display:inline-flex;align-items:center;gap:7px;font-weight:800;letter-spacing:-.02em;color:var(--ink);font-size:14px}
+footer .ulx-b img{border-radius:8px}
+footer .ulx-b em{font-style:normal;background:linear-gradient(135deg,#ffb020,#ff5e3a);-webkit-background-clip:text;background-clip:text;color:transparent}
 footer .fl{color:var(--mute);font-weight:600;white-space:nowrap}
 footer{position:relative;overflow:hidden;border-top:1px solid var(--line);background:var(--paper)}
 footer::before,footer::after{content:"";position:absolute;bottom:0;width:110px;height:110px;pointer-events:none;background:linear-gradient(45deg,transparent 0 12%,#f5c542 12% 20%,transparent 20% 24%,#1fa855 24% 32%,transparent 32% 36%,#0855a1 36% 44%,transparent 44%)}
@@ -558,7 +562,7 @@ img{-webkit-user-drag:none}
     <div hidden><button id="cp" type="button"></button><textarea id="imp"></textarea><button id="im" type="button"></button><span id="msg"></span></div>
   </div></section>
 </main>
-<footer><div class="in"><p>Dados extraídos dos currículos oficiais publicados no CAGR/UFSC (consulta em novembro de 2026). Projeto independente, sem vínculo oficial com a UFSC. Confira sempre com a coordenação do seu curso antes de planejar a matrícula.</p><a class="fl" href="cursos/">Grades de todos os cursos</a><span class="fb"><img src="logo.svg" alt="" width="26" height="26">Grade <em>UFSC</em></span></div></footer>
+<footer><div class="in"><p>Dados extraídos dos currículos oficiais publicados no CAGR/UFSC (consulta em novembro de 2026). Projeto independente, sem vínculo oficial com a UFSC. Confira sempre com a coordenação do seu curso antes de planejar a matrícula.</p><a class="fl" href="cursos/">Grades de todos os cursos</a><span class="ulx">Projeto em parceria com <span class="ulx-b"><img src="unilux.svg" alt="" width="26" height="26"><span>Uni<em>-lux</em></span></span></span><span class="fb"><img src="logo.svg" alt="" width="26" height="26"><span>Grade <em>UFSC</em></span></span></div></footer>
 <aside class="sheet" id="sheet" aria-live="polite"></aside>
 <div class="cdlg" id="cdlg" role="dialog" aria-modal="true" aria-labelledby="cdlg-t">
   <div class="cbox">
