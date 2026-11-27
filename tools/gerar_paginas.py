@@ -135,7 +135,7 @@ def main():
                 {"@type": "ListItem", "position": 3, "name": nome, "item": url}]}]}
         out = head(title, desc, url, f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>') + f"""
 <body>
-<header><div class="in"><a class="brand" href="../"><img src="../brasao-ufsc.webp" alt="Brasão da UFSC" width="36" height="40">Grade <em>UFSC</em></a><a class="cta" style="min-height:40px;padding:0 16px;font-size:14px" href="../#{e(c['slug'])}">Abrir mapa</a></div></header>
+<header><div class="in"><a class="brand" href="../"><img src="../logo.svg" alt="" width="36" height="36" style="border-radius:11px">Grade <em>UFSC</em></a><a class="cta" style="min-height:40px;padding:0 16px;font-size:14px" href="../#{e(c['slug'])}">Abrir mapa</a></div></header>
 <main class="in">
 <nav class="bc" aria-label="Você está em"><a href="../">Grade UFSC</a> › <a href="./">Cursos</a> › {e(nome)}</nav>
 <h1>Grade curricular de {e(nome)} – UFSC</h1>
@@ -172,7 +172,7 @@ def main():
           "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": SITE + "cursos/" + pag[k], "name": C[k]["nome"]} for i, k in enumerate(keys)]}
     out = head(title, desc, url, f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>') + f"""
 <body>
-<header><div class="in"><a class="brand" href="../"><img src="../brasao-ufsc.webp" alt="Brasão da UFSC" width="36" height="40">Grade <em>UFSC</em></a><a class="cta" style="min-height:40px;padding:0 16px;font-size:14px" href="../">Abrir mapa</a></div></header>
+<header><div class="in"><a class="brand" href="../"><img src="../logo.svg" alt="" width="36" height="36" style="border-radius:11px">Grade <em>UFSC</em></a><a class="cta" style="min-height:40px;padding:0 16px;font-size:14px" href="../">Abrir mapa</a></div></header>
 <main class="in"><nav class="bc"><a href="../">Grade UFSC</a> › Cursos</nav>
 <h1>Grades curriculares da UFSC</h1><p class="lead">{e(desc)} Escolha o curso para ver as disciplinas de cada fase e seus pré-requisitos.</p>
 <div class="srch"><input id="q" type="search" placeholder="Buscar curso" aria-label="Buscar curso" autocomplete="off"></div>

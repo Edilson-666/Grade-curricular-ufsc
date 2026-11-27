@@ -1,6 +1,6 @@
 // Service worker da Grade UFSC: permite instalar como app e abrir sem internet.
-const CACHE = "grade-ufsc-v2";
-const SHELL = ["./og-image.png", "./", "./index.html", "./brasao-ufsc.webp", "./campus-ufsc.webp", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
+const CACHE = "grade-ufsc-v3";
+const SHELL = ["./og-image.png", "./", "./index.html", "./logo.svg", "./campus-ufsc.webp", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener("fetch", e => {

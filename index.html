@@ -124,6 +124,8 @@ button{-webkit-tap-highlight-color:transparent}
 .cbtn #clab{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @media(max-width:640px){.hero-in{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center}.hero-tools{display:contents}.tbtn{grid-column:2;grid-row:1;width:42px;height:42px}.cbtn{grid-column:1/-1}.hero::before{width:100%;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 70%);mask-image:linear-gradient(90deg,transparent 10%,#000 85%);opacity:.3}.hero-in{padding:20px var(--gut) 18px}.cbtn{width:100%;min-width:0;max-width:none}.crest img{height:42px}.crest{padding-right:13px}.brand{gap:13px}.brand-t b{font-size:21px}}
 
+.brand .logo{flex:none;width:46px;height:46px;border-radius:14px;box-shadow:0 8px 20px -10px #2563eb}
+@media(max-width:640px){.brand .logo{width:42px;height:42px}}
 /* ---------- Seletor de curso ---------- */
 .cdlg{position:fixed;inset:0;z-index:20;display:flex;align-items:flex-end;justify-content:center;background:#0009;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:opacity .2s,visibility 0s .2s}
 .cdlg.on{opacity:1;visibility:visible;transition:opacity .2s}
@@ -366,6 +368,11 @@ footer{position:relative;overflow:hidden;border-top:1px solid var(--line);backgr
 footer::before,footer::after{content:"";position:absolute;bottom:0;width:110px;height:110px;pointer-events:none;background:linear-gradient(45deg,transparent 0 12%,#f5c542 12% 20%,transparent 20% 24%,#1fa855 24% 32%,transparent 32% 36%,#0855a1 36% 44%,transparent 44%)}
 footer::before{left:0}
 footer::after{right:0;transform:scaleX(-1)}
+.stripes{position:absolute;inset:0;z-index:2;pointer-events:none}
+.stripes::before,.stripes::after{content:"";position:absolute;top:0;width:110px;height:110px;background:linear-gradient(45deg,transparent 0 12%,#f5c542 12% 20%,transparent 20% 24%,#1fa855 24% 32%,transparent 32% 36%,#0855a1 36% 44%,transparent 44%)}
+.stripes::before{left:0;transform:scaleY(-1)}
+.stripes::after{right:0;transform:scale(-1,-1)}
+@media(max-width:640px){.stripes::before,.stripes::after{width:70px;height:70px}}
 @media(max-width:640px){footer::before,footer::after{width:84px;height:84px}footer .in{padding-bottom:100px!important}}
 footer .in{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:flex-start;justify-content:space-between;padding-top:24px;padding-bottom:110px;font-size:12.5px;color:var(--mute)}
 footer p{margin:0;max-width:760px}
@@ -496,10 +503,10 @@ img{-webkit-user-drag:none}
 </style>
 </head>
 <body>
-<header class="hero">
+<header class="hero"><span class="stripes" aria-hidden="true"></span>
   <div class="hero-in">
     <div class="brand">
-      <span class="crest"><img src="brasao-ufsc.webp" alt="Brasão da UFSC" width="41" height="46"><b>UFSC</b></span>
+      <img class="logo" src="logo.svg" alt="" width="46" height="46">
       <div class="brand-t"><b>Grade <em>UFSC</em></b><span>Mapa de pré-requisitos da graduação</span></div>
     </div>
     <div class="hero-tools">
@@ -551,7 +558,7 @@ img{-webkit-user-drag:none}
     <div hidden><button id="cp" type="button"></button><textarea id="imp"></textarea><button id="im" type="button"></button><span id="msg"></span></div>
   </div></section>
 </main>
-<footer><div class="in"><p>Dados extraídos dos currículos oficiais publicados no CAGR/UFSC (consulta em novembro de 2026). Projeto independente, sem vínculo oficial com a UFSC. Confira sempre com a coordenação do seu curso antes de planejar a matrícula.</p><a class="fl" href="cursos/">Grades de todos os cursos</a><span class="fb"><img src="brasao-ufsc.webp" alt="" width="23" height="26">Grade <em>UFSC</em></span></div></footer>
+<footer><div class="in"><p>Dados extraídos dos currículos oficiais publicados no CAGR/UFSC (consulta em novembro de 2026). Projeto independente, sem vínculo oficial com a UFSC. Confira sempre com a coordenação do seu curso antes de planejar a matrícula.</p><a class="fl" href="cursos/">Grades de todos os cursos</a><span class="fb"><img src="logo.svg" alt="" width="26" height="26">Grade <em>UFSC</em></span></div></footer>
 <aside class="sheet" id="sheet" aria-live="polite"></aside>
 <div class="cdlg" id="cdlg" role="dialog" aria-modal="true" aria-labelledby="cdlg-t">
   <div class="cbox">
