@@ -129,23 +129,6 @@ svg{flex:none}
 .hint{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mute);margin:12px 2px 0}
 .hint svg{color:var(--acc)}
 
-/* ---------- Ranking ---------- */
-.rank-p{position:relative;overflow:hidden}
-.rank-p::before{content:"";position:absolute;top:0;left:12%;right:12%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.rank{display:grid;gap:8px}
-.rk{width:100%;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:2px 14px;align-items:center;text-align:left;font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:10px 14px 10px 10px;cursor:pointer;min-height:60px;transition:border-color .2s,background .2s}
-.rk:hover{border-color:var(--line2);background:var(--soft)}
-.rk:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-.rk em{display:grid;place-items:center;min-width:42px;height:42px;padding:0 6px;border-radius:13px;font-size:17px;font-weight:800;font-style:normal;letter-spacing:-.02em;color:var(--ink);background:var(--soft);border:1px solid var(--line2)}
-.rk:nth-child(1) em{color:var(--gold);border-color:color-mix(in srgb,var(--gold) 55%,transparent);background:color-mix(in srgb,var(--gold) 10%,var(--soft));box-shadow:0 0 24px -8px color-mix(in srgb,var(--gold) 60%,transparent)}
-.rk:nth-child(2) em{color:light-dark(#64748b,#cbd5e1);border-color:light-dark(#94a3b8,#64748b)}
-.rk:nth-child(3) em{color:light-dark(#b45309,#e0a46a);border-color:light-dark(#d97706,#8a5a2b)}
-.rk strong{font-weight:700}
-.rk p{margin:0;font-size:12.5px;color:var(--mute)}
-.tag{--t:var(--mute);font-size:11.5px;font-weight:700;white-space:nowrap;color:var(--t);padding:5px 10px;border-radius:99px;background:color-mix(in srgb,var(--t) 13%,transparent)}
-.tag.av{--t:var(--acc)}.tag.rp{--t:var(--bad)}.tag.cu{--t:var(--cur)}
-.tag[style*="--lil"]{--t:var(--lil)}
-
 /* ---------- Painel da disciplina ---------- */
 .sheet{position:fixed;z-index:9;left:0;right:0;bottom:0;max-height:78vh;overflow:auto;background:var(--panel);border:1px solid var(--line2);border-bottom:0;border-radius:24px 24px 0 0;box-shadow:0 -20px 50px -12px #000c;padding:24px var(--gut) 26px;transform:translateY(105%);visibility:hidden;transition:transform .3s cubic-bezier(.2,.8,.2,1),visibility 0s .3s}
 .sheet::before{content:"";position:absolute;top:9px;left:50%;width:40px;height:4px;margin-left:-20px;border-radius:99px;background:var(--line2)}
@@ -247,11 +230,7 @@ footer .fb em{font-style:normal;color:var(--vio)}
     <div class="wrap" id="wrap"><div class="board" id="board"></div></div>
     <p class="hint"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 11v5M12 7.5v.01"/></svg><span>Arraste para o lado para ver todas as fases. Ao selecionar uma disciplina, a cadeia de pré-requisitos fica em azul e o que ela libera em roxo.</span></p>
   </section>
-  <section class="panel rank-p">
-    <div class="panel-hd"><span class="ico sm gold" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18h18M4 18 3 7l5 4 4-6 4 6 5-4-1 11"/></svg></span><div><p class="eyebrow">Prioridades</p><h2>Disciplinas que mais travam o curso</h2></div></div>
-    <p class="sub" style="margin:-6px 0 14px">Disciplinas ainda não aprovadas, ordenadas por quantas outras dependem delas (direta ou indiretamente).</p>
-    <div class="rank" id="rank"></div>
-  </section>
+  <div id="rank" hidden></div>
   <section class="panel ct">
     <div class="ct-l"><span class="ico sm vio" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><div><h2>Seu curso não está aqui?</h2><p class="sub">Envie o nome do curso e, se possível, o PDF do currículo emitido pelo CAGR. O mesmo canal serve para relatar erros nos pré-requisitos.</p></div></div>
     <div class="ctb"><a class="wa" target="_blank" rel="noopener" href="https://wa.me/5511982664943?text=Oi%21%20Vi%20a%20Grade%20Curricular%20UFSC%20e%20quero%20que%20adicione%20o%20curso%20de%3A%20"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.6A8.4 8.4 0 1 1 21 11.5z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2.1-2.1l.8-1-1-2L9 9.5z"/></svg><span>WhatsApp<small>(11) 98266-4943</small></span></a><a class="ig" target="_blank" rel="noopener" href="https://instagram.com/edils.ondavid"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg><span>Instagram<small>@edils.ondavid</small></span></a></div>
