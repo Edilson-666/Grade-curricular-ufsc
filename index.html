@@ -112,13 +112,16 @@ button{-webkit-tap-highlight-color:transparent}
 .stat:nth-child(2){--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 10 12 5 2 10l10 5 10-5z'/%3E%3Cpath d='M6 12v5c3 2 9 2 12 0v-5'/%3E%3C/svg%3E")}
 .stat:nth-child(3){--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E")}
 .stat:nth-child(4){--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M18 6 6 18M6 6l12 12'/%3E%3C/svg%3E")}
-.stat b{display:block;font-size:clamp(19px,2.4vw,24px);font-weight:800;letter-spacing:-.03em;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stat b{display:block;font-size:clamp(19px,2.4vw,24px);font-weight:800;letter-spacing:-.03em;line-height:1.15}
 .stat span{font-size:12.5px;color:var(--mute);line-height:1.3}
-@media(max-width:820px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.stat{padding:12px;column-gap:10px}.stat::before{width:36px;height:36px;border-radius:11px}.stat::after{left:21px;top:calc(50% - 9px);width:18px;height:18px}.stat b{font-size:clamp(17px,5vw,22px)}}
+@media(max-width:820px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.stat{grid-template-columns:1fr;row-gap:2px;align-content:start;padding:14px}.stat::before{grid-row:auto;width:36px;height:36px;border-radius:11px;margin-bottom:10px}.stat::after{left:23px;top:23px;width:18px;height:18px}.stat b{font-size:clamp(18px,5.4vw,22px)}}
 .bar{height:6px;border-radius:99px;background:var(--soft);overflow:hidden}
 .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--acc),var(--ok));transition:width .5s cubic-bezier(.2,.8,.2,1)}
-.legend{display:flex;flex-wrap:wrap;gap:6px;font-size:12.5px;font-weight:600;color:var(--mute)}
-.legend span{display:inline-flex;align-items:center;gap:7px;padding:5px 11px 5px 9px;border-radius:99px;background:var(--soft)}
+.legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:6px;font-size:12.5px;font-weight:600;color:var(--mute)}
+.legend .ln::before{display:none}.legend .ln b{color:var(--ink);font-weight:800}
+@media(max-width:420px){.legend{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:1080px){.legend{grid-template-columns:repeat(7,auto);justify-content:start}}
+.legend span{display:flex;align-items:center;gap:8px;min-height:34px;padding:6px 12px;border-radius:10px;background:var(--soft);white-space:nowrap}
 .legend span::before{content:"";width:9px;height:9px;border-radius:3px;border:1.5px solid var(--c);background:var(--b,transparent)}
 .legend span.dash::before{border-style:dashed}
 
@@ -127,7 +130,8 @@ button{-webkit-tap-highlight-color:transparent}
 .mbtn{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;border-radius:99px;border:1px solid var(--line2);background:var(--panel);color:var(--ink);font:700 14px Inter,Roboto,sans-serif;cursor:pointer;white-space:nowrap;transition:border-color .2s,background .2s,color .2s}
 .mbtn:hover{border-color:var(--mute)}
 .mbtn.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
-@media(max-width:520px){.mbtn span{display:none}.mbtn{width:42px;padding:0;justify-content:center}}
+.map .sec-hd{flex-wrap:wrap}
+@media(max-width:620px){.mbtn{order:3;flex:1 0 100%;justify-content:center;min-height:46px}}
 .wrap{overflow-x:auto;scroll-snap-type:x proximity;border-block:1px solid var(--line);background:var(--paper);background-image:radial-gradient(color-mix(in srgb,var(--line2) 60%,transparent) 1px,transparent 1px);background-size:20px 20px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--line2) transparent;scroll-padding-left:var(--edge)}
 .wrap::-webkit-scrollbar{height:8px}.wrap::-webkit-scrollbar-thumb{background:var(--line2);border-radius:99px}
 .board{position:relative;display:flex;gap:36px;padding:18px var(--edge) 24px;width:max-content}
@@ -171,12 +175,13 @@ button{-webkit-tap-highlight-color:transparent}
 .hint svg{color:var(--mute)}
 .mbar{position:fixed;z-index:8;left:50%;bottom:14px;width:min(680px,calc(100% - 20px));transform:translate(-50%,140%);visibility:hidden;display:grid;gap:10px;padding:12px;border-radius:22px;background:var(--panel);border:1px solid var(--line2);box-shadow:0 20px 50px -10px #000d;transition:transform .3s cubic-bezier(.2,.8,.2,1),visibility 0s .3s}
 .mbar.on{transform:translate(-50%,0);visibility:visible;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
-.mtop{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 4px}
-.mtop b{font-size:15px}
-.mtop span{font-size:12.5px;color:var(--mute)}
+.mtop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:2px 4px 0}
+.mtop b{display:block;font-size:15px}
+.mtop span{display:block;margin-top:2px;font-size:12.5px;line-height:1.45;color:var(--mute)}
 .mact{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
-.mact button{min-height:44px;border-radius:13px;border:1px solid var(--line2);background:var(--card);color:var(--ink);font:700 13.5px Inter,Roboto,sans-serif;cursor:pointer}
-.mact button:disabled{opacity:.35;cursor:not-allowed}
+.mact button{min-height:46px;padding:0 6px;border-radius:13px;border:1px solid var(--line2);background:var(--card);color:var(--ink);font:700 13.5px Inter,Roboto,sans-serif;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:480px){.mact{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.mact button:disabled{color:var(--mute)!important;background:var(--soft)!important;border-color:var(--line)!important;cursor:not-allowed}
 .mact [data-b=ap]{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 50%,transparent);background:var(--okbg)}
 .mact [data-b=cu]{color:var(--cur);border-color:color-mix(in srgb,var(--cur) 45%,transparent);background:var(--curbg)}
 .mact [data-b=rp]{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 45%,transparent);background:var(--badbg)}
@@ -254,30 +259,29 @@ select:focus-visible,textarea:focus-visible{outline:2px solid var(--acc);outline
 textarea{border-radius:18px;padding:14px 16px;resize:vertical}
 
 /* ---------- Contato ---------- */
-.ct{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px 32px}
-.ct-l{display:flex;gap:14px;align-items:flex-start}
-.ctb{display:flex;flex-wrap:wrap;gap:8px}
-.ctb a{display:inline-flex;align-items:center;gap:12px;min-height:54px;padding:8px 20px 8px 10px;border-radius:16px;border:1px solid var(--line2);background:var(--card);color:var(--ink);text-decoration:none;font-weight:700;line-height:1.2;transition:border-color .2s,background .2s}
-.ctb a>svg{box-sizing:content-box;padding:7px;border-radius:99px;border:1px solid var(--line2)}
-.ctb a span{display:flex;flex-direction:column}
-.ctb a small{font-weight:500;font-size:12.5px;color:var(--mute)}
-.ctb a.wa{color:var(--acc);background:var(--accbg);border-color:color-mix(in srgb,var(--acc) 55%,transparent)}
-.ctb a.wa>svg{border-color:color-mix(in srgb,var(--acc) 45%,transparent)}
-.ctb a:hover{border-color:var(--mute)}
-.ctb a.wa:hover{border-color:var(--acc)}
-.ctb a:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
-@media(max-width:700px){.ct{grid-template-columns:1fr}.ctb a{flex:1}}
+.lead{margin:-6px 0 16px;max-width:680px}
+.ctb{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:760px}
+@media(max-width:640px){.ctb{grid-template-columns:1fr}}
+.cta{display:flex;align-items:center;gap:14px;min-height:68px;padding:12px 14px;border-radius:18px;border:1px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none;transition:border-color .2s,background .2s,transform .15s}
+.cta:hover{border-color:var(--line2);background:var(--soft)}
+.cta:active{transform:scale(.99)}
+.cta:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.cta .bi{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:14px;color:#fff}
+.cta.wa .bi{background:#25d366}
+.cta.ig .bi{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285aeb 90%)}
+.ctt{flex:1;display:flex;flex-direction:column;line-height:1.25}
+.ctt b{font-size:15.5px;font-weight:700}
+.ctt small{font-size:13px;color:var(--mute);white-space:nowrap}
+.go{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:0 12px;border-radius:99px;background:var(--soft);border:1px solid var(--line2);font-size:13px;font-weight:700;color:var(--ink)}
+@media(max-width:360px){.go{font-size:0;gap:0;padding:0;width:34px;justify-content:center}}
 
-/* ---------- Backup ---------- */
-summary{cursor:pointer;font-weight:700;font-size:16px;min-height:48px;display:flex;align-items:center;gap:14px;list-style:none}
-summary::-webkit-details-marker{display:none}
-summary::after{content:"";margin-left:auto;width:9px;height:9px;border-right:2px solid var(--mute);border-bottom:2px solid var(--mute);transform:rotate(-45deg);transition:transform .2s}
-details[open] summary::after{transform:rotate(45deg)}
-.dt{padding:8px 0 4px}
-.row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px}.act{padding:0 18px}
-.act.warn{border-color:color-mix(in srgb,var(--lil) 50%,transparent);color:var(--lil);background:var(--lilbg)}
-#cp,#im{color:var(--acc);background:var(--accbg);border-color:color-mix(in srgb,var(--acc) 55%,transparent)}
-#msg:not(:empty){display:inline-flex;align-items:center;min-height:32px;margin:0;padding:0 12px;border-radius:99px;background:var(--soft);color:var(--ink);font-size:13px;font-weight:600}
+/* ---------- Progresso ---------- */
+.prog{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px}
+.prog .sub{margin:-6px 0 0;max-width:620px}
+.act{font:700 14px Inter,Roboto,sans-serif;min-height:46px;padding:0 18px;border-radius:14px;cursor:pointer}
+.act.warn{border:1px solid color-mix(in srgb,var(--lil) 50%,transparent);color:var(--lil);background:var(--lilbg)}
+.act.warn:hover{border-color:var(--lil)}
+@media(max-width:640px){.prog .act{width:100%}}
 
 /* ---------- Rodapé ---------- */
 footer{border-top:1px solid var(--line);background:var(--paper)}
@@ -306,10 +310,10 @@ footer .fb em{font-style:normal;color:var(--ufsc)}
     <div class="callout" role="note"><span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></span><div><b>Obs.: confira sempre o PDF do currículo do seu curso no CAGR.</b><span>O mapa ajuda a planejar, mas o documento oficial é o que vale.</span></div></div>
     <div class="stats" id="stats"></div>
     <div class="bar"><i id="pbar"></i></div>
-    <div class="legend"><span style="--c:var(--ok);--b:var(--okbg)">Aprovada</span><span style="--c:var(--bad);--b:var(--badbg)">Reprovada</span><span style="--c:var(--cur);--b:var(--curbg)">Cursando</span><span style="--c:var(--acc);--b:var(--accbg)">Disponível agora</span><span style="--c:var(--lil);--b:var(--lilbg)">Falta pré-requisito</span><span class="dash" style="--c:var(--cur)">Falta carga horária</span><span style="--c:var(--mute)">→N = quantas ela trava</span></div>
+    <div class="legend" aria-label="Legenda"><span style="--c:var(--ok);--b:var(--okbg)">Aprovada</span><span style="--c:var(--bad);--b:var(--badbg)">Reprovada</span><span style="--c:var(--cur);--b:var(--curbg)">Cursando</span><span style="--c:var(--acc);--b:var(--accbg)">Disponível agora</span><span style="--c:var(--lil);--b:var(--lilbg)">Falta pré-requisito</span><span class="dash" style="--c:var(--cur)">Falta carga horária</span><span class="ln"><b>→N</b>quantas ela trava</span></div>
   </div></section>
   <section class="sec map">
-    <div class="in sec-hd"><span class="ico sm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7.5 11 16M16 7.5 13 16"/></svg></span><div><p class="eyebrow">Mapa</p><h2>Fases e pré-requisitos</h2></div><button class="mbtn" id="mbtn" type="button" aria-pressed="false" title="Marcar várias de uma vez"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="m8 12 3 3 5-6"/></svg><span>Marcar várias</span></button></div>
+    <div class="in sec-hd"><span class="ico sm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7.5 11 16M16 7.5 13 16"/></svg></span><div><p class="eyebrow">Mapa</p><h2>Fases e pré-requisitos</h2></div><button class="mbtn" id="mbtn" type="button" aria-pressed="false" title="Marcar várias de uma vez"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="m8 12 3 3 5-6"/></svg><span>Marcar várias de uma vez</span></button></div>
     <div class="wrap" id="wrap"><div class="board" id="board"></div></div>
     <p class="in hint"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 11v5M12 7.5v.01"/></svg><span>Arraste para o lado para ver todas as fases. Ao selecionar uma disciplina, a cadeia de pré-requisitos fica em azul e o que ela libera em roxo.</span></p>
   </section>
@@ -318,21 +322,21 @@ footer .fb em{font-style:normal;color:var(--ufsc)}
     <div class="rank" id="rank"></div>
     <button class="rmore" id="rmore" type="button" hidden>Ver todas</button>
   </div></section>
-  <section class="sec"><div class="in ct">
-    <div class="ct-l"><span class="ico sm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><div><h2>Seu curso não está aqui?</h2><p class="sub">Envie o nome do curso e, se possível, o PDF do currículo emitido pelo CAGR. O mesmo canal serve para relatar erros nos pré-requisitos.</p></div></div>
-    <div class="ctb"><a class="wa" target="_blank" rel="noopener" href="https://wa.me/5511982664943?text=Oi%21%20Vi%20a%20Grade%20Curricular%20UFSC%20e%20quero%20que%20adicione%20o%20curso%20de%3A%20"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.6A8.4 8.4 0 1 1 21 11.5z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2.1-2.1l.8-1-1-2L9 9.5z"/></svg><span>WhatsApp<small>(11) 98266-4943</small></span></a><a class="ig" target="_blank" rel="noopener" href="https://instagram.com/edils.ondavid"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg><span>Instagram<small>@edils.ondavid</small></span></a></div>
+  <section class="sec"><div class="in">
+    <div class="sec-hd"><span class="ico sm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><div><p class="eyebrow">Contato</p><h2>Seu curso não está aqui?</h2></div></div>
+    <p class="sub lead">Envie o nome do curso e, se possível, o PDF do currículo emitido pelo CAGR. O mesmo canal serve para relatar erros nos pré-requisitos.</p>
+    <div class="ctb">
+      <a class="cta wa" target="_blank" rel="noopener" href="https://wa.me/5511982664943?text=Oi%21%20Vi%20a%20Grade%20Curricular%20UFSC%20e%20quero%20que%20adicione%20o%20curso%20de%3A%20" aria-label="Conversar no WhatsApp: (11) 98266-4943"><span class="bi" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></span><span class="ctt"><b>WhatsApp</b><small>(11) 98266-4943</small></span><span class="go" aria-hidden="true">Conversar<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+      <a class="cta ig" target="_blank" rel="noopener" href="https://www.instagram.com/edils.ondavid/" aria-label="Abrir Instagram @edils.ondavid"><span class="bi" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></span><span class="ctt"><b>Instagram</b><small>@edils.ondavid</small></span><span class="go" aria-hidden="true">Abrir<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+    </div>
   </div></section>
   <section class="sec"><div class="in">
-    <details>
-      <summary><span class="ico sm" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></span>Backup e reinício</summary>
-      <div class="dt">
-      <p class="sub">O progresso fica salvo neste navegador. Copie o código para guardar ou levar a outro aparelho.</p>
-      <div class="row"><button class="act" id="cp">Copiar progresso</button><button class="act warn" id="rs">Apagar tudo</button></div>
-      <p class="lbl">Colar progresso salvo</p>
-      <textarea id="imp" rows="3"></textarea>
-      <div class="row"><button class="act" id="im">Importar</button><span id="msg" class="sub"></span></div>
-      </div>
-    </details>
+    <div class="sec-hd"><span class="ico sm" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg></span><div><p class="eyebrow">Progresso</p><h2>Salvo automaticamente</h2></div></div>
+    <div class="prog">
+      <p class="sub">Suas marcações ficam guardadas neste navegador, separadas por curso. Se você limpar os dados do navegador ou usar outro aparelho, será preciso marcar de novo.</p>
+      <button class="act warn" id="rs" type="button">Apagar progresso deste curso</button>
+    </div>
+    <div hidden><button id="cp" type="button"></button><textarea id="imp"></textarea><button id="im" type="button"></button><span id="msg"></span></div>
   </div></section>
 </main>
 <footer><div class="in"><p>Dados extraídos dos currículos oficiais publicados no CAGR/UFSC (consulta em novembro de 2026). Projeto independente, sem vínculo oficial com a UFSC. Confira sempre com a coordenação do seu curso antes de planejar a matrícula.</p><span class="fb"><img src="brasao-ufsc.webp" alt="" width="23" height="26">Grade <em>UFSC</em></span></div></footer>
@@ -345,8 +349,8 @@ footer .fb em{font-style:normal;color:var(--ufsc)}
   </div>
 </div>
 <div class="mbar" id="mbar" role="region" aria-label="Marcar várias disciplinas">
-  <div class="mtop"><div><b id="mcount">Nenhuma selecionada</b><br><span>Toque nas disciplinas ou no título da fase</span></div><button class="mclose" id="mexit" type="button" aria-label="Sair do modo de seleção">×</button></div>
-  <div class="mact"><button data-b="ap" type="button">Aprovada</button><button data-b="cu" type="button">Cursando</button><button data-b="rp" type="button">Reprovada</button><button data-b="" type="button">Limpar</button></div>
+  <div class="mtop"><div><b id="mcount">Marcar várias de uma vez</b><span id="mhint">1. Toque nas disciplinas (ou no título de uma fase para pegar todas)<br>2. Escolha abaixo como marcar</span></div><button class="mclose" id="mexit" type="button" aria-label="Sair do modo de seleção">×</button></div>
+  <div class="mact"><button data-b="ap" type="button">Aprovada</button><button data-b="cu" type="button">Cursando</button><button data-b="rp" type="button">Reprovada</button><button data-b="" type="button">Desmarcar</button></div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"><span class="ico" id="tico" aria-hidden="true"></span><div><b id="tt"></b><p id="tp"></p></div><button type="button" id="tx" aria-label="Fechar aviso">×</button></div>
 <script>
@@ -490,7 +494,7 @@ const msg=document.getElementById("msg");
 document.getElementById("cp").onclick=async()=>{const t=JSON.stringify(S);try{await navigator.clipboard.writeText(t);msg.textContent="Copiado."}catch(e){document.getElementById("imp").value=t;msg.textContent="Copie o texto acima."}};
 document.getElementById("im").onclick=()=>{try{const v=JSON.parse(document.getElementById("imp").value);if(!v.s)throw 0;S={s:v.s,o:v.o||{},p:v.p||{}};save();render();msg.textContent="Importado."}catch(e){msg.textContent="Código inválido."}};
 let armed=false;const rs=document.getElementById("rs");
-rs.onclick=()=>{if(!armed){armed=true;rs.textContent="Toque de novo para confirmar";setTimeout(()=>{armed=false;rs.textContent="Apagar tudo"},4000);return}S={s:{},o:{},p:{}};save();sel=null;sheet.classList.remove("on");armed=false;rs.textContent="Apagar tudo";render()};
+rs.onclick=()=>{if(!armed){armed=true;rs.textContent="Toque de novo para confirmar";setTimeout(()=>{armed=false;rs.textContent="Apagar progresso deste curso"},4000);return}S={s:{},o:{},p:{}};save();sel=null;sheet.classList.remove("on");armed=false;rs.textContent="Apagar progresso deste curso";render()};
 const ro=new ResizeObserver(()=>requestAnimationFrame(lines));ro.observe(board);
 document.fonts&&document.fonts.ready.then(lines);
 csel.addEventListener("change",()=>{load(csel.value);render()});
@@ -523,10 +527,11 @@ cq.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();const o
 let multi=false;const picked=new Set();
 const mbtn=$("mbtn"),mbar=$("mbar");
 const paint=()=>{board.classList.toggle("multi",multi);board.querySelectorAll(".c").forEach(b=>b.classList.toggle("pk",picked.has(b.dataset.c)));
-  $("mcount").textContent=picked.size?`${picked.size} selecionada${picked.size>1?"s":""}`:"Nenhuma selecionada";
+  $("mcount").textContent=picked.size?`${picked.size} disciplina${picked.size>1?"s":""} selecionada${picked.size>1?"s":""}`:"Marcar várias de uma vez";
+  $("mhint").innerHTML=picked.size?"Agora escolha como marcar. Toque de novo numa disciplina para tirar da seleção.":"1. Toque nas disciplinas (ou no título de uma fase para pegar todas)<br>2. Escolha abaixo como marcar";
   mbar.querySelectorAll("[data-b]").forEach(b=>b.disabled=!picked.size)};
 new MutationObserver(()=>{if(multi)paint()}).observe(board,{childList:true});
-const setMulti=on=>{multi=on;picked.clear();mbtn.classList.toggle("on",on);mbtn.setAttribute("aria-pressed",on);mbar.classList.toggle("on",on);
+const setMulti=on=>{multi=on;picked.clear();mbtn.querySelector("span").textContent=on?"Sair da seleção":"Marcar várias de uma vez";mbtn.classList.toggle("on",on);mbtn.setAttribute("aria-pressed",on);mbar.classList.toggle("on",on);
   if(on&&sel){sel=null;sheet.classList.remove("on");render()}paint()};
 mbtn.onclick=()=>setMulti(!multi);$("mexit").onclick=()=>setMulti(false);
 board.addEventListener("click",e=>{if(!multi)return;
