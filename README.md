@@ -101,4 +101,5 @@ As equivalências com códigos de currículos antigos não são consideradas. Os
 
 - Página estática por curso em `cursos/` (título, descrição, tabela de disciplinas por fase, pré-requisitos, optativas, dados estruturados `Course` e `BreadcrumbList`) e índice em `cursos/index.html`
 - `sitemap.xml`, `robots.txt`, URL canônica, Open Graph/Twitter com `og-image.png` e dados estruturados `WebSite`, `WebApplication` e `FAQPage` na página principal
+- Política de Privacidade (`privacidade.html`) e Termos de Uso (`termos.html`), gerados por `python3 tools/gerar_legal.py`
 - Para atualizar depois de mudar cursos no `index.html`: `python3 tools/gerar_paginas.py` (precisa do Node.js)
