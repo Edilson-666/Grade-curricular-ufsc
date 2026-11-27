@@ -421,7 +421,7 @@ img{-webkit-user-drag:none}
 .xact{display:grid;gap:8px}
 .xact button{min-height:48px;border-radius:14px;font:700 15px Inter,Roboto,sans-serif;cursor:pointer;border:1px solid var(--line2);background:var(--card);color:var(--ink)}
 .xact .pri{background:var(--ink);border-color:var(--ink);color:var(--bg)}
-@media(prefers-reduced-motion:reduce){#sparks{display:none}.board.focus .c.sel,.myph .dot{animation:none}}
+@media(prefers-reduced-motion:reduce){.board.focus .c.sel,.myph .dot{animation:none}}
 /* ---------- Tema claro: cores mais vivas e contraste ---------- */
 @media(prefers-color-scheme:light){
 :root:not([data-theme=dark]) .c{background:color-mix(in srgb,var(--st) 13%,#fff);border-color:color-mix(in srgb,var(--st) 70%,#fff);box-shadow:0 1px 2px #0f172a12}
@@ -788,7 +788,7 @@ new MutationObserver(()=>{loadPh();paintPh()}).observe($("ttl"),{childList:true,
 // Eletricidade correndo pelos cabos da disciplina selecionada
 // Faíscas numa camada própria e leve: só ela é redesenhada a cada quadro (evita travar no celular)
 function syncSparks(){const svg=$("lines");let sp=$("sparks");
-  const on=svg&&board.classList.contains("focus")&&!board.classList.contains("calm")&&!matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const on=svg&&board.classList.contains("focus")&&!board.classList.contains("calm");
   const hl=on?[...svg.querySelectorAll("path.hl")]:[];const key=hl.map(p=>p.getAttribute("d")+(p.classList.contains("dn")?"d":"")).join("|");
   if(!sp){if(!key)return;sp=document.createElementNS("http://www.w3.org/2000/svg","svg");sp.id="sparks";sp.setAttribute("aria-hidden","true");board.appendChild(sp)}
   if(sp.__k===key)return;sp.__k=key;sp.setAttribute("width",svg?svg.getAttribute("width"):0);sp.setAttribute("height",svg?svg.getAttribute("height"):0);
