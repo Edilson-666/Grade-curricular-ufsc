@@ -71,7 +71,8 @@ Mapa interativo das disciplinas de cada fase dos cursos de graduação da UFSC, 
 
 ## Funcionalidades
 
-- Marcar cada disciplina como aprovada, reprovada, cursando ou não cursada
+- Marcar cada disciplina como aprovada, validada, reprovada, cursando ou não cursada (validada conta como aprovada para horas e pré-requisitos)
+- Marcar várias disciplinas de uma vez (ou uma fase inteira)
 - Disciplinas com pré-requisito pendente ficam em vermelho, mas podem ser marcadas (validação ou quebra de pré-requisito)
 - Destaque da cadeia de pré-requisitos e do que cada disciplina libera
 - Lista de gargalos: disciplinas pendentes que mais travam o curso
