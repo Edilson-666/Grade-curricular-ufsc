@@ -2,7 +2,7 @@
 """Gera privacidade.html e termos.html. Uso: python3 tools/gerar_legal.py"""
 import os
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE = "https://edilson-666.github.io/Grade-curricular-ufsc/"
+SITE = "https://ufscgradeinterativo.github.io/"
 VIG = "27 de novembro de 2026"
 
 CSS = """:root{color-scheme:light dark;--bg:light-dark(#f6f7f9,#000);--panel:light-dark(#fff,#0c0d10);--soft:light-dark(#eceef2,#16171c);--ink:light-dark(#0d0e12,#f4f5f7);--txt:light-dark(#2b2f38,#c9ced8);--mute:light-dark(#5f6470,#8b8f99);--line:light-dark(#e1e4e9,#1d1f24);--line2:light-dark(#c4c9d2,#2f3138);--ufsc:light-dark(#0855a1,#3d8fe0);--av:light-dark(#2563eb,#4d8dff)}
@@ -48,7 +48,7 @@ footer{margin-top:30px;border-top:1px solid var(--line);background:var(--panel)}
 footer nav{display:flex;flex-wrap:wrap;gap:6px 18px}footer nav a{color:var(--ink);text-decoration:none;font-weight:600}
 .ulx{display:inline-flex;align-items:center;gap:6px;font-weight:800;color:var(--ink)}.ulx img{border-radius:6px}.ulx em{font-style:normal;color:#ff8a1c}"""
 
-GUARD = """<script>try{var t=localStorage.getItem("grade-tema");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}(function(){var ok=["edilson-666.github.io","localhost","127.0.0.1",""];if(ok.indexOf(location.hostname)<0){location.replace("%s"+location.pathname.split("/").pop());return}if(window.top!==window.self){try{window.top.location.replace(location.href)}catch(e){document.documentElement.style.display="none"}}})();</script>""" % SITE
+GUARD = """<script>try{var t=localStorage.getItem("grade-tema");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}(function(){var ok=["ufscgradeinterativo.github.io","edilson-666.github.io","localhost","127.0.0.1",""];if(ok.indexOf(location.hostname)<0){location.replace("%s"+location.pathname.split("/").pop());return}if(window.top!==window.self){try{window.top.location.replace(location.href)}catch(e){document.documentElement.style.display="none"}}})();</script>""" % SITE
 
 def page(fn, title, desc, eyebrow, h1, lead, summary, sections):
     toc = "".join(f'<li><a href="#{i}">{t}</a></li>' for i, t, _ in sections)
