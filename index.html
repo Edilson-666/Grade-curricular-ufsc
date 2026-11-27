@@ -608,7 +608,7 @@ function panel(){
   sheet.innerHTML=`<div class="sh"><div><p class="sub" style="margin:0 0 4px">${P?"Optativas":isOpt?slotLbl(sel):sel} · fase ${m.f} · ${m.h} h/a</p><h2>${optName(sel)}</h2><p class="mini-st">${sit}</p></div><div class="shb"><button class="x" id="mini" aria-label="${mini?"Expandir":"Minimizar"}" aria-expanded="${!mini}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="${mini?"M3 10l5-5 5 5":"M3 6l5 5 5-5"}" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button><button class="x" id="close" aria-label="Fechar">×</button></div></div>
   ${P?"":`<div class="btns">`}${P?"":[["ap","Aprovada"],["va","Validada"],["cu","Cursando"],["rp","Reprovada"],["","Não cursada"]].map(([k,t])=>`<button class="${k}${(S.s[sel]||"")===k?" on":""}" data-s="${k}">${t}</button>`).join("")+"</div>"}
   ${isOpt?`<p class="lbl">Qual disciplina?</p><select id="osel"><option value="">Escolher…</option>${slotList(sel).map(([c,n])=>`<option value="${c}"${S.o[sel]===c?" selected":""}>${n}</option>`).join("")}</select>`:""}
-  <div class="box${lock?" lk":""}">${sit}</div>
+  <div class="box${lock&&s!=="ap"?" lk":""}">${sit}</div>
   ${m.ch&&!chm?`<div class="box">Exige ${m.ch} h/a cursadas para matrícula.</div>`:""}${(C[K].notes||{})[sel]?`<div class="box">${C[K].notes[sel]}</div>`:""}
   ${pool}<p class="lbl">Pré-requisitos</p>${preChips(m.p)}
   <p class="lbl">Libera diretamente</p>${chips(DEP[sel].filter(x=>hard(sel,x)))}${DEP[sel].some(x=>!hard(sel,x))?`<p class="lbl">Também serve de alternativa ("ou") para</p>${chips(DEP[sel].filter(x=>!hard(sel,x)))}`:""}
@@ -671,18 +671,19 @@ const paint=()=>{board.classList.toggle("multi",multi);board.dataset.brush=brush
   $("mcount").textContent=changes?`${changes} alteraç${changes===1?"ão":"ões"} feita${changes===1?"":"s"}`:"Marcar várias";
   $("mhint").textContent=brush?`Toque para marcar como ${NOMES[brush]} · título da fase marca todas`:"Toque para limpar · título da fase limpa todas";
   $("mundo").disabled=!undo.length};
-const setMulti=on=>{multi=on;undo.length=0;changes=0;mbtn.querySelector("span").textContent=on?"Concluir marcação":"Marcar várias de uma vez";mbtn.classList.toggle("on",on);mbtn.setAttribute("aria-pressed",on);mbar.classList.toggle("on",on);document.body.classList.toggle("painting",on);if(on)requestAnimationFrame(()=>{document.querySelector(".map").scrollIntoView({behavior:"smooth",block:"start"});requestAnimationFrame(lines)});
+const setMulti=on=>{multi=on;paintSel=null;if(!on&&!sel){board.classList.remove("focus");board.querySelectorAll(".c.hl,.c.sel").forEach(b=>b.classList.remove("hl","sel"))}undo.length=0;changes=0;mbtn.querySelector("span").textContent=on?"Concluir marcação":"Marcar várias de uma vez";mbtn.classList.toggle("on",on);mbtn.setAttribute("aria-pressed",on);mbar.classList.toggle("on",on);document.body.classList.toggle("painting",on);if(on)requestAnimationFrame(()=>{document.querySelector(".map").scrollIntoView({behavior:"smooth",block:"start"});requestAnimationFrame(lines)});
   if(on&&sel){sel=null;sheet.classList.remove("on");render()}paint()};
 mbtn.onclick=()=>setMulti(!multi);
-let fpT=0;
-function flashPath(c){if(!M[c])return;clearTimeout(fpT);const anc=getAnc(c),des=getDesc(c);
-  board.querySelectorAll(".c").forEach(b=>{const x=b.dataset.c;b.classList.toggle("hl",x===c||anc.has(x)||des.has(x))});
-  const keep=sel;sel=c;board.classList.add("focus","surge");lines();sel=keep;
-  fpT=setTimeout(()=>{board.classList.remove("focus","surge");board.querySelectorAll(".c.hl").forEach(b=>b.classList.remove("hl"));lines()},1800)}
+let fpT=0,paintSel=null;
+function applyPaint(){const c=paintSel;if(!c||!M[c])return;const anc=getAnc(c),des=getDesc(c);
+  board.querySelectorAll(".c").forEach(b=>{const x=b.dataset.c;b.classList.toggle("hl",x===c||anc.has(x)||des.has(x));b.classList.toggle("sel",x===c)});
+  board.classList.add("focus");const keep=sel;sel=c;lines();sel=keep}
+function flashPath(c){paintSel=c;board.classList.add("surge");applyPaint();clearTimeout(fpT);fpT=setTimeout(()=>board.classList.remove("surge"),1400)}
+new MutationObserver(()=>{if(!multi||!paintSel)return;const svg=$("lines");if(!board.classList.contains("focus")||!svg||!svg.querySelector("path.hl"))applyPaint()}).observe(board,{childList:true,subtree:true});
 const applyBrush=list=>{list=list.filter(c=>!isPool(c));if(!list.length)return;
   const off=brush&&list.every(c=>S.s[c]===brush);const before=list.map(c=>[c,S.s[c]]);let n=0;
   list.forEach(c=>{const v=off||!brush?undefined:brush;if(S.s[c]!==v){n++;v?S.s[c]=v:delete S.s[c]}});
-  if(!n)return;undo.push(before);changes+=n;save();render();paint();if(list.length===1){const c0=list[0];requestAnimationFrame(()=>requestAnimationFrame(()=>flashPath(c0)))}
+  if(!n)return;undo.push(before);changes+=n;save();render();paint();if(list.length===1)flashPath(list[0]);else{paintSel=null;board.classList.remove("focus");render()}
   list.forEach(c=>{const el=$("n-"+c);if(el){el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash")}});
   if(list.length>1)toast("ok",`${n} disciplina${n===1?"":"s"}: ${off?"desmarcada"+(n===1?"":"s"):NOMES[brush].toLowerCase()}`,"Use “Desfazer” se marcou errado.")};
 board.addEventListener("click",e=>{if(!multi)return;
@@ -690,7 +691,10 @@ board.addEventListener("click",e=>{if(!multi)return;
   if(h){e.stopPropagation();applyBrush([...h.parentNode.querySelectorAll(".c")].map(b=>b.dataset.c));return}
   const b=e.target.closest(".c");if(!b)return;e.stopPropagation();applyBrush([b.dataset.c])},true);
 mbar.addEventListener("click",e=>{const b=e.target.closest("[data-b]");if(!b)return;brush=b.dataset.b;paint()});
-document.addEventListener("click",e=>{if(!e.target.closest("#sheet [data-s]"))return;board.classList.add("surge");clearTimeout(fpT);fpT=setTimeout(()=>board.classList.remove("surge"),1600)});
+let stTap=false;document.addEventListener("click",e=>{stTap=!!e.target.closest("#sheet [data-s]")},true);
+document.addEventListener("click",e=>{if(!stTap||!sel)return;stTap=false;board.classList.add("surge");clearTimeout(fpT);fpT=setTimeout(()=>board.classList.remove("surge"),1600);
+  const c=sel;mini=true;panel();requestAnimationFrame(()=>{const el=$("n-"+c);if(!el)return;const r=el.getBoundingClientRect(),hs=sheet.getBoundingClientRect(),vis=innerHeight-(matchMedia("(min-width:900px)").matches?0:hs.height);
+    scrollBy({top:r.top+r.height/2-vis/2,behavior:"smooth"});el.scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"})})});
 $("mundo").onclick=()=>{const last=undo.pop();if(!last)return;last.forEach(([c,v])=>{v?S.s[c]=v:delete S.s[c]});changes=Math.max(0,changes-last.length);save();render();paint();
   last.forEach(([c])=>{const el=$("n-"+c);if(el){el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash")}})};
 $("mdone").onclick=()=>{const n=changes;setMulti(false);if(n)toast("ok",`Pronto! ${n} alteraç${n===1?"ão":"ões"} salva${n===1?"":"s"}`,"")};
