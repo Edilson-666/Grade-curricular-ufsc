@@ -14,7 +14,7 @@
 <script>
 (function(){
   /* Só roda no endereço oficial: cópias em outros domínios voltam para o site original */
-  var OK=["ufscgradeinterativo.github.io","edilson-666.github.io","localhost","127.0.0.1",""];
+  var OK=["ufscgradeinterativo.github.io","localhost","127.0.0.1",""];
   if(OK.indexOf(location.hostname)<0){location.replace("https://ufscgradeinterativo.github.io/"+location.hash);return}
   /* Não pode ser aberto dentro de outro site (iframe) */
   if(window.top!==window.self){document.documentElement.style.visibility="hidden";try{window.top.location.replace(window.self.location.href)}catch(e){}}

@@ -48,7 +48,7 @@ footer{margin-top:30px;border-top:1px solid var(--line);background:var(--panel)}
 footer nav{display:flex;flex-wrap:wrap;gap:6px 18px}footer nav a{color:var(--ink);text-decoration:none;font-weight:600}
 .ulx{display:inline-flex;align-items:center;gap:6px;font-weight:800;color:var(--ink)}.ulx img{border-radius:6px}.ulx em{font-style:normal;color:#ff8a1c}"""
 
-GUARD = """<script>try{var t=localStorage.getItem("grade-tema");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}(function(){var ok=["ufscgradeinterativo.github.io","edilson-666.github.io","localhost","127.0.0.1",""];if(ok.indexOf(location.hostname)<0){location.replace("%s"+location.pathname.split("/").pop());return}if(window.top!==window.self){try{window.top.location.replace(location.href)}catch(e){document.documentElement.style.display="none"}}})();</script>""" % SITE
+GUARD = """<script>try{var t=localStorage.getItem("grade-tema");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}(function(){var ok=["ufscgradeinterativo.github.io","localhost","127.0.0.1",""];if(ok.indexOf(location.hostname)<0){location.replace("%s"+location.pathname.split("/").pop());return}if(window.top!==window.self){try{window.top.location.replace(location.href)}catch(e){document.documentElement.style.display="none"}}})();</script>""" % SITE
 
 def page(fn, title, desc, eyebrow, h1, lead, summary, sections):
     toc = "".join(f'<li><a href="#{i}">{t}</a></li>' for i, t, _ in sections)
