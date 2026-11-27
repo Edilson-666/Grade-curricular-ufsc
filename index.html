@@ -41,19 +41,19 @@
 --ink:light-dark(#0d0e12,#f4f5f7);
 --mute:light-dark(#5f6470,#8b8f99);
 --line:light-dark(#e1e4e9,#1d1f24);
---line2:light-dark(#cfd2d9,#2f3138);
+--line2:light-dark(#c4c9d2,#2f3138);
 --acc:light-dark(#0284c7,#1fb6ff);
 --accbg:light-dark(#e8f6fd,#06202c);
---ok:light-dark(#15803d,#22c55e);
---okbg:light-dark(#ecf8f0,#0a2014);
---va:light-dark(#0f766e,#2dd4bf);
---vabg:light-dark(#e6f6f4,#05211e);
---bad:light-dark(#c2410c,#fb923c);
---badbg:light-dark(#fdf1ea,#261509);
---cur:light-dark(#a16207,#f5c542);
---curbg:light-dark(#fdf7e4,#241d08);
---lil:light-dark(#b91c1c,#f05252);
---lilbg:light-dark(#fdf2f2,#220b0d);
+--ok:light-dark(#16a34a,#22c55e);
+--okbg:light-dark(#dcf5e5,#0a2014);
+--va:light-dark(#0d9488,#2dd4bf);
+--vabg:light-dark(#d5f3ef,#05211e);
+--bad:light-dark(#ea580c,#fb923c);
+--badbg:light-dark(#ffe9dc,#261509);
+--cur:light-dark(#ca8a04,#f5c542);
+--curbg:light-dark(#fdf3cf,#241d08);
+--lil:light-dark(#dc2626,#f05252);
+--lilbg:light-dark(#fde6e6,#220b0d);
 --dn:light-dark(#6d28d9,#8b7bff);
 --gold:light-dark(#b7791f,#f5c542);
 --ufsc:light-dark(#0855a1,#3d8fe0);
@@ -198,7 +198,7 @@ button{-webkit-tap-highlight-color:transparent}
 #lines path.done{stroke:var(--ok);opacity:.5}
 #lines path.alt{stroke-dasharray:4 4}
 .board.focus #lines path{opacity:.05}
-.board.focus #lines path.hl{opacity:1;stroke:var(--acc);stroke-width:2.2}
+.board.focus #lines path.hl{opacity:1;stroke:var(--acc);stroke-width:2.6}
 .board.focus #lines path.hl.dn{stroke:var(--dn)}
 /* modo marcar várias */
 .board.multi{--bc:var(--ok)}
@@ -383,19 +383,22 @@ img{-webkit-user-drag:none}
 
 /* ---------- Mapa: neon e eletricidade ---------- */
 .wrap{background-color:light-dark(#eef1f6,#04060b);background-image:radial-gradient(760px 340px at 10% -5%,color-mix(in srgb,var(--acc) 16%,transparent),transparent 70%),radial-gradient(640px 320px at 92% 105%,color-mix(in srgb,var(--dn) 16%,transparent),transparent 70%),radial-gradient(color-mix(in srgb,var(--line2) 55%,transparent) 1px,transparent 1px);background-size:auto,auto,20px 20px;box-shadow:inset 0 1px 0 color-mix(in srgb,var(--acc) 35%,transparent),inset 0 -1px 0 color-mix(in srgb,var(--dn) 35%,transparent)}
-#lines path.done{stroke:var(--ok);opacity:.6;filter:drop-shadow(0 0 2px color-mix(in srgb,var(--ok) 60%,transparent))}
-.board.focus #lines path.hl{opacity:1;stroke:var(--acc);stroke-width:2.2;filter:drop-shadow(0 0 4px var(--acc))}
-.board.focus #lines path.hl.dn{stroke:var(--dn);filter:drop-shadow(0 0 4px var(--dn))}
-.board.focus #lines path.spark{opacity:1;stroke:light-dark(#ffffff,#eafcff);stroke-width:2.8;stroke-linecap:round;stroke-dasharray:3 40;animation:zap 1.15s linear infinite;filter:drop-shadow(0 0 3px var(--acc)) drop-shadow(0 0 7px var(--acc))}
-.board.focus #lines path.spark.dn{filter:drop-shadow(0 0 3px var(--dn)) drop-shadow(0 0 7px var(--dn))}
+#lines path.done{stroke:var(--ok);opacity:.6}
+.board.focus #lines path.hl{opacity:1;stroke:var(--acc);stroke-width:2.6}
+.board.focus #lines path.hl.dn{stroke:var(--dn)}
+#sparks{position:absolute;inset:0;z-index:0;pointer-events:none;will-change:transform;contain:strict}
+#sparks path{fill:none}
+#sparks path.spark{opacity:1;stroke:light-dark(#ffffff,#eafcff);stroke-width:2.8;stroke-linecap:round;stroke-dasharray:3 40;animation:zap 1.15s linear infinite}
+#sparks path.spark.dn{stroke:light-dark(#ffffff,#f3eeff)}
 @keyframes zap{to{stroke-dashoffset:-43}}
+.board.calm #sparks{display:none}
+#lines{contain:strict}
 /* Marcar várias: só acende o caminho, sem apagar o resto da grade */
 .board.multi.focus .c:not(.hl){opacity:1}
 .board.multi.focus #lines path:not(.hl):not(.spark){opacity:.5}
 .board.multi .c.sel{outline:none;animation:none}
 .board.multi.focus .c.hl{box-shadow:0 0 0 1px var(--st),0 0 16px -6px var(--st)}
-.board.surge #lines path.spark{stroke-width:3.4;animation-duration:.55s;filter:drop-shadow(0 0 4px var(--acc)) drop-shadow(0 0 12px var(--acc))}
-.board.surge #lines path.spark.dn{filter:drop-shadow(0 0 4px var(--dn)) drop-shadow(0 0 12px var(--dn))}
+.board.surge #sparks path.spark{stroke-width:3.4;animation-duration:.55s}
 .board.surge .c.hl:not(.sel){animation:flash .7s ease-out}
 .board.focus .c.hl{box-shadow:0 0 0 1px var(--st),0 0 20px -6px var(--st)}
 .board.focus .c.sel{animation:glow 1.8s ease-in-out infinite}
@@ -418,7 +421,50 @@ img{-webkit-user-drag:none}
 .xact{display:grid;gap:8px}
 .xact button{min-height:48px;border-radius:14px;font:700 15px Inter,Roboto,sans-serif;cursor:pointer;border:1px solid var(--line2);background:var(--card);color:var(--ink)}
 .xact .pri{background:var(--ink);border-color:var(--ink);color:var(--bg)}
-@media(prefers-reduced-motion:reduce){.board.focus #lines path.spark{display:none}.board.focus .c.sel,.myph .dot{animation:none}}
+@media(prefers-reduced-motion:reduce){#sparks{display:none}.board.focus .c.sel,.myph .dot{animation:none}}
+/* ---------- Tema claro: cores mais vivas e contraste ---------- */
+@media(prefers-color-scheme:light){
+:root:not([data-theme=dark]) .c{background:color-mix(in srgb,var(--st) 13%,#fff);border-color:color-mix(in srgb,var(--st) 70%,#fff);box-shadow:0 1px 2px #0f172a12}
+:root:not([data-theme=dark]) .c small>span:first-child{color:color-mix(in srgb,var(--st) 75%,#000)}
+:root:not([data-theme=dark]) .c.av{background:#fff;border-color:#9aa1ad;box-shadow:0 2px 8px -3px #0f172a26}
+:root:not([data-theme=dark]) .c.bl{background:color-mix(in srgb,var(--lil) 9%,#fff)}
+:root:not([data-theme=dark]) .c.bl strong{color:#7f1d1d}
+:root:not([data-theme=dark]) .c.hr{border-color:var(--cur)}
+:root:not([data-theme=dark]) .wrap{background-color:#eef1f5;background-image:radial-gradient(#c9ced8 1px,transparent 1px);background-size:20px 20px;box-shadow:inset 0 1px 0 var(--line),inset 0 -1px 0 var(--line)}
+:root:not([data-theme=dark]) #lines path{stroke:#b9c0cc}
+:root:not([data-theme=dark]) #lines path.done{stroke:var(--ok);opacity:.85}
+:root:not([data-theme=dark]) .board.focus #lines path{opacity:.12}
+:root:not([data-theme=dark]) .board.focus #lines path.hl{opacity:1}
+:root:not([data-theme=dark]) #sparks path.spark{stroke:#fff;stroke-width:3}
+:root:not([data-theme=dark]) .board.focus .c:not(.hl){opacity:.35}
+:root:not([data-theme=dark]) .col h3{background:#fff;border-color:var(--line2);box-shadow:0 1px 2px #0f172a10}
+:root:not([data-theme=dark]) .col.me::before{background:linear-gradient(180deg,#0d0e120d,transparent 70%);border-color:#0d0e1226}
+:root:not([data-theme=dark]) .col.me h3{background:var(--ink);border-color:var(--ink);color:#fff;box-shadow:0 6px 16px -8px #0d0e12}
+:root:not([data-theme=dark]) .col.me h3 span{color:#d6d9df}
+:root:not([data-theme=dark]) .legend span{background:#fff;border:1px solid var(--line)}
+:root:not([data-theme=dark]) .stat{box-shadow:0 1px 2px #0f172a10}
+:root:not([data-theme=dark]) .mbar{background:#ffffffeb}
+}
+:root[data-theme=light] .c{background:color-mix(in srgb,var(--st) 13%,#fff);border-color:color-mix(in srgb,var(--st) 70%,#fff);box-shadow:0 1px 2px #0f172a12}
+:root[data-theme=light] .c small>span:first-child{color:color-mix(in srgb,var(--st) 75%,#000)}
+:root[data-theme=light] .c.av{background:#fff;border-color:#9aa1ad;box-shadow:0 2px 8px -3px #0f172a26}
+:root[data-theme=light] .c.bl{background:color-mix(in srgb,var(--lil) 9%,#fff)}
+:root[data-theme=light] .c.bl strong{color:#7f1d1d}
+:root[data-theme=light] .c.hr{border-color:var(--cur)}
+:root[data-theme=light] .wrap{background-color:#eef1f5;background-image:radial-gradient(#c9ced8 1px,transparent 1px);background-size:20px 20px;box-shadow:inset 0 1px 0 var(--line),inset 0 -1px 0 var(--line)}
+:root[data-theme=light] #lines path{stroke:#b9c0cc}
+:root[data-theme=light] #lines path.done{stroke:var(--ok);opacity:.85}
+:root[data-theme=light] .board.focus #lines path{opacity:.12}
+:root[data-theme=light] .board.focus #lines path.hl{opacity:1}
+:root[data-theme=light] #sparks path.spark{stroke:#fff;stroke-width:3}
+:root[data-theme=light] .board.focus .c:not(.hl){opacity:.35}
+:root[data-theme=light] .col h3{background:#fff;border-color:var(--line2);box-shadow:0 1px 2px #0f172a10}
+:root[data-theme=light] .col.me::before{background:linear-gradient(180deg,#0d0e120d,transparent 70%);border-color:#0d0e1226}
+:root[data-theme=light] .col.me h3{background:var(--ink);border-color:var(--ink);color:#fff;box-shadow:0 6px 16px -8px #0d0e12}
+:root[data-theme=light] .col.me h3 span{color:#d6d9df}
+:root[data-theme=light] .legend span{background:#fff;border:1px solid var(--line)}
+:root[data-theme=light] .stat{box-shadow:0 1px 2px #0f172a10}
+:root[data-theme=light] .mbar{background:#ffffffeb}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -676,15 +722,16 @@ const paint=()=>{board.classList.toggle("multi",multi);board.dataset.brush=brush
   $("mcount").textContent=changes?`${changes} alteraç${changes===1?"ão":"ões"} feita${changes===1?"":"s"}`:"Marcar várias";
   $("mhint").textContent=brush?`Toque para marcar como ${NOMES[brush]} · título da fase marca todas`:"Toque para limpar · título da fase limpa todas";
   $("mundo").disabled=!undo.length};
-const setMulti=on=>{multi=on;paintSel=null;if(!on&&!sel){board.classList.remove("focus");board.querySelectorAll(".c.hl,.c.sel").forEach(b=>b.classList.remove("hl","sel"))}undo.length=0;changes=0;mbtn.querySelector("span").textContent=on?"Concluir marcação":"Marcar várias de uma vez";mbtn.classList.toggle("on",on);mbtn.setAttribute("aria-pressed",on);mbar.classList.toggle("on",on);document.body.classList.toggle("painting",on);if(on)requestAnimationFrame(()=>{document.querySelector(".map").scrollIntoView({behavior:"smooth",block:"start"});requestAnimationFrame(lines)});
+const setMulti=on=>{multi=on;paintSel=null;board.classList.remove("calm");if(!on&&!sel){board.classList.remove("focus");board.querySelectorAll(".c.hl,.c.sel").forEach(b=>b.classList.remove("hl","sel"))}undo.length=0;changes=0;mbtn.querySelector("span").textContent=on?"Concluir marcação":"Marcar várias de uma vez";mbtn.classList.toggle("on",on);mbtn.setAttribute("aria-pressed",on);mbar.classList.toggle("on",on);document.body.classList.toggle("painting",on);if(on)requestAnimationFrame(()=>{document.querySelector(".map").scrollIntoView({behavior:"smooth",block:"start"});requestAnimationFrame(lines)});
   if(on&&sel){sel=null;sheet.classList.remove("on");render()}paint()};
 mbtn.onclick=()=>setMulti(!multi);
 let fpT=0,paintSel=null;
 function applyPaint(){const c=paintSel;if(!c||!M[c])return;const anc=getAnc(c),des=getDesc(c);
   board.querySelectorAll(".c").forEach(b=>{const x=b.dataset.c;b.classList.toggle("hl",x===c||anc.has(x)||des.has(x));b.classList.toggle("sel",x===c)});
-  board.classList.add("focus");const keep=sel;sel=c;lines();sel=keep}
-function flashPath(c){paintSel=c;board.classList.add("surge");applyPaint();clearTimeout(fpT);fpT=setTimeout(()=>board.classList.remove("surge"),1400)}
-new MutationObserver(()=>{if(!multi||!paintSel)return;const svg=$("lines");if(!board.classList.contains("focus")||!svg||!svg.querySelector("path.hl"))applyPaint()}).observe(board,{childList:true,subtree:true});
+  board.classList.add("focus");const keep=sel;sel=c;lines();sel=keep;const svg=$("lines");if(svg&&!svg.querySelector(".pmark"))svg.insertAdjacentHTML("beforeend",'<g class="pmark"/>')}
+let calmT=0;
+function flashPath(c){paintSel=c;board.classList.remove("calm");board.classList.add("surge");applyPaint();clearTimeout(fpT);fpT=setTimeout(()=>board.classList.remove("surge"),1400);clearTimeout(calmT);calmT=setTimeout(()=>{if(multi)board.classList.add("calm")},2600)}
+new MutationObserver(()=>{if(!multi||!paintSel)return;const svg=$("lines");if(svg&&(!board.classList.contains("focus")||!svg.querySelector(".pmark")))applyPaint()}).observe(board,{childList:true,subtree:true});
 const applyBrush=list=>{list=list.filter(c=>!isPool(c));if(!list.length)return;
   const off=brush&&list.every(c=>S.s[c]===brush);const before=list.map(c=>[c,S.s[c]]);let n=0;
   list.forEach(c=>{const v=off||!brush?undefined:brush;if(S.s[c]!==v){n++;v?S.s[c]=v:delete S.s[c]}});
@@ -739,8 +786,15 @@ board.addEventListener("click",e=>{if(multi)return;const h=e.target.closest(".co
   paintPh();toast("ok",myPh?`Você está na ${i}ª fase`:"Fase atual desmarcada",myPh?"Ela fica destacada no mapa e no topo do curso.":"")});
 new MutationObserver(()=>{loadPh();paintPh()}).observe($("ttl"),{childList:true,characterData:true,subtree:true});
 // Eletricidade correndo pelos cabos da disciplina selecionada
-new MutationObserver(()=>{paintPh();const svg=$("lines");if(!svg||!board.classList.contains("focus")||svg.querySelector(".spark"))return;
-  const f=document.createDocumentFragment();svg.querySelectorAll("path.hl").forEach(p=>{const q=p.cloneNode();q.setAttribute("class","spark"+(p.classList.contains("dn")?" dn":""));f.append(q)});svg.append(f)}).observe(board,{childList:true,subtree:true});
+// Faíscas numa camada própria e leve: só ela é redesenhada a cada quadro (evita travar no celular)
+function syncSparks(){const svg=$("lines");let sp=$("sparks");
+  const on=svg&&board.classList.contains("focus")&&!board.classList.contains("calm")&&!matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const hl=on?[...svg.querySelectorAll("path.hl")]:[];const key=hl.map(p=>p.getAttribute("d")+(p.classList.contains("dn")?"d":"")).join("|");
+  if(!sp){if(!key)return;sp=document.createElementNS("http://www.w3.org/2000/svg","svg");sp.id="sparks";sp.setAttribute("aria-hidden","true");board.appendChild(sp)}
+  if(sp.__k===key)return;sp.__k=key;sp.setAttribute("width",svg?svg.getAttribute("width"):0);sp.setAttribute("height",svg?svg.getAttribute("height"):0);
+  sp.innerHTML=hl.map(p=>`<path class="spark${p.classList.contains("dn")?" dn":""}" d="${p.getAttribute("d")}"/>`).join("")}
+new MutationObserver(()=>{paintPh();syncSparks()}).observe(board,{childList:true,subtree:true});
+new MutationObserver(syncSparks).observe(board,{attributes:true,attributeFilter:["class"]});
 loadPh();paintPh();
 
 // Voltar inteligente: fecha o que estiver aberto antes de sair da página
