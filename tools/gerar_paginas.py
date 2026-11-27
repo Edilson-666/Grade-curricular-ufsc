@@ -150,7 +150,7 @@ def main():
 <h2>Outros cursos da UFSC</h2>
 <a class="more" href="./">Ver as grades de todos os {len(keys)} cursos →</a>
 </main>
-<footer><div class="in">Dados extraídos dos currículos oficiais publicados no CAGR/UFSC. Atualizado em {HOJE}. Projeto independente, sem vínculo oficial com a UFSC. <a href="../privacidade.html">Privacidade e termos</a>.<br><span class="ulx">Projeto em parceria com <b><img src="../unilux.svg" alt="" width="22" height="22"><span>Uni<em>-lux</em></span></b></span></div></footer>
+<footer><div class="in">Dados extraídos dos currículos oficiais publicados no CAGR/UFSC. Atualizado em {HOJE}. Projeto independente, sem vínculo oficial com a UFSC. <a href="../privacidade.html">Privacidade</a> · <a href="../termos.html">Termos de uso</a>.<br><span class="ulx">Projeto em parceria com <b><img src="../unilux.svg" alt="" width="22" height="22"><span>Uni<em>-lux</em></span></b></span></div></footer>
 </body>
 </html>
 """
@@ -181,12 +181,12 @@ def main():
 <div id="lst">{grupos}</div><p class="empty" id="vazio" hidden>Nenhum curso encontrado.</p>
 {BUSCA}
 </main>
-<footer><div class="in">Projeto independente, sem vínculo oficial com a UFSC. <a href="../privacidade.html">Privacidade e termos</a>.<br><span class="ulx">Projeto em parceria com <b><img src="../unilux.svg" alt="" width="22" height="22"><span>Uni<em>-lux</em></span></b></span> Atualizado em {HOJE}.</div></footer>
+<footer><div class="in">Projeto independente, sem vínculo oficial com a UFSC. <a href="../privacidade.html">Privacidade</a> · <a href="../termos.html">Termos de uso</a>.<br><span class="ulx">Projeto em parceria com <b><img src="../unilux.svg" alt="" width="22" height="22"><span>Uni<em>-lux</em></span></b></span> Atualizado em {HOJE}.</div></footer>
 </body></html>
 """
     open(os.path.join(RAIZ, "cursos", "index.html"), "w", encoding="utf-8").write(out)
     # sitemap e robots
-    urls = [(SITE, "1.0"), (SITE + "cursos/", "0.9"), (SITE + "privacidade.html", "0.3")] + [(SITE + "cursos/" + pag[k], "0.8") for k in keys]
+    urls = [(SITE, "1.0"), (SITE + "cursos/", "0.9"), (SITE + "privacidade.html", "0.3"), (SITE + "termos.html", "0.3")] + [(SITE + "cursos/" + pag[k], "0.8") for k in keys]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
         f"  <url><loc>{u}</loc><lastmod>{HOJE}</lastmod><changefreq>monthly</changefreq><priority>{p}</priority></url>\n" for u, p in urls) + "</urlset>\n"
     open(os.path.join(RAIZ, "sitemap.xml"), "w").write(sm)
