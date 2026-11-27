@@ -389,6 +389,11 @@ img{-webkit-user-drag:none}
 .board.focus #lines path.spark{opacity:1;stroke:light-dark(#ffffff,#eafcff);stroke-width:2.8;stroke-linecap:round;stroke-dasharray:3 40;animation:zap 1.15s linear infinite;filter:drop-shadow(0 0 3px var(--acc)) drop-shadow(0 0 7px var(--acc))}
 .board.focus #lines path.spark.dn{filter:drop-shadow(0 0 3px var(--dn)) drop-shadow(0 0 7px var(--dn))}
 @keyframes zap{to{stroke-dashoffset:-43}}
+/* Marcar várias: só acende o caminho, sem apagar o resto da grade */
+.board.multi.focus .c:not(.hl){opacity:1}
+.board.multi.focus #lines path:not(.hl):not(.spark){opacity:.5}
+.board.multi .c.sel{outline:none;animation:none}
+.board.multi.focus .c.hl{box-shadow:0 0 0 1px var(--st),0 0 16px -6px var(--st)}
 .board.surge #lines path.spark{stroke-width:3.4;animation-duration:.55s;filter:drop-shadow(0 0 4px var(--acc)) drop-shadow(0 0 12px var(--acc))}
 .board.surge #lines path.spark.dn{filter:drop-shadow(0 0 4px var(--dn)) drop-shadow(0 0 12px var(--dn))}
 .board.surge .c.hl:not(.sel){animation:flash .7s ease-out}
