@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://edilson-666.github.io/Grade-curricular-ufsc/sitemap.xml
+Sitemap: https://ufscgradeinterativo.github.io/sitemap.xml

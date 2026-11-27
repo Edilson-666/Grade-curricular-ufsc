@@ -4,7 +4,7 @@ Uso: python3 tools/gerar_paginas.py   (precisa do Node.js instalado)
 """
 import json, os, re, subprocess, unicodedata, html, datetime
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE = "https://edilson-666.github.io/Grade-curricular-ufsc/"
+SITE = "https://ufscgradeinterativo.github.io/"
 HOJE = datetime.date.today().isoformat()
 
 def dados():
@@ -58,7 +58,7 @@ footer{margin-top:44px;border-top:1px solid var(--line);padding:22px 0 40px;font
 BUSCA = r"""<script>(function(){var q=document.getElementById("q"),n=function(t){return t.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()};
 q.addEventListener("input",function(){var v=n(q.value.trim()),tot=0;document.querySelectorAll(".grp").forEach(function(g){var c=0;g.querySelectorAll("li").forEach(function(li){var ok=!v||n(li.dataset.n).indexOf(v)>=0;li.hidden=!ok;if(ok)c++});g.hidden=!c;tot+=c});document.getElementById("vazio").hidden=!!tot;document.querySelector(".az").hidden=!!v})})();</script>"""
 
-GUARD = """<script>(function(){var ok=["edilson-666.github.io","localhost","127.0.0.1",""];if(ok.indexOf(location.hostname)<0){location.replace("%s"+location.pathname.replace(/^.*\\/cursos\\//,"cursos/"));return}if(window.top!==window.self){try{window.top.location.replace(location.href)}catch(e){document.documentElement.style.display="none"}}})();</script>""" % SITE
+GUARD = """<script>(function(){var ok=["ufscgradeinterativo.github.io","localhost","127.0.0.1",""];if(ok.indexOf(location.hostname)<0){location.replace("%s"+location.pathname.replace(/^.*\\/cursos\\//,"cursos/"));return}if(window.top!==window.self){try{window.top.location.replace(location.href)}catch(e){document.documentElement.style.display="none"}}})();</script>""" % SITE
 
 def head(title, desc, url, extra=""):
     return f"""<!DOCTYPE html>
