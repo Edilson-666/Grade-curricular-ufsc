@@ -77,6 +77,7 @@ Mapa interativo das disciplinas de cada fase dos cursos de graduação da UFSC, 
 - Ao selecionar uma disciplina, a energia corre pelos cabos mostrando o caminho de pré-requisitos
 - Botão voltar inteligente: fecha painéis abertos e pergunta antes de sair do site
 - Tema claro/escuro
+- Instalável como app (PWA) e funciona sem internet depois da primeira visita
 - Proteções: só roda no endereço oficial, não abre dentro de outros sites, política de segurança de conteúdo (CSP) e bloqueio de seleção/cópia
 - Disciplinas com pré-requisito pendente ficam em vermelho, mas podem ser marcadas (validação ou quebra de pré-requisito)
 - Destaque da cadeia de pré-requisitos e do que cada disciplina libera
