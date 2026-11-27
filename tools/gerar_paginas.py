@@ -52,6 +52,7 @@ ul.opts{columns:2;gap:24px;padding-left:18px;font-size:14px}@media(max-width:640
 .cl .go{flex:none;color:var(--mute)}
 .empty{padding:30px 10px;text-align:center;color:var(--mute)}
 .more{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 18px;border-radius:99px;border:1px solid var(--line2);background:var(--panel);color:var(--ink);font-weight:700;text-decoration:none}
+.ulx{display:inline-flex;align-items:center;gap:7px;margin-top:8px;white-space:nowrap}.ulx b{display:inline-flex;align-items:center;gap:6px;color:var(--ink)}.ulx img{border-radius:7px}.ulx em{font-style:normal;color:#ff8a1c}
 footer{margin-top:44px;border-top:1px solid var(--line);padding:22px 0 40px;font-size:13px;color:var(--mute)}"""
 
 BUSCA = r"""<script>(function(){var q=document.getElementById("q"),n=function(t){return t.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()};
@@ -149,7 +150,7 @@ def main():
 <h2>Outros cursos da UFSC</h2>
 <a class="more" href="./">Ver as grades de todos os {len(keys)} cursos →</a>
 </main>
-<footer><div class="in">Dados extraídos dos currículos oficiais publicados no CAGR/UFSC. Atualizado em {HOJE}. Projeto independente, sem vínculo oficial com a UFSC.</div></footer>
+<footer><div class="in">Dados extraídos dos currículos oficiais publicados no CAGR/UFSC. Atualizado em {HOJE}. Projeto independente, sem vínculo oficial com a UFSC.<br><span class="ulx">Projeto em parceria com <b><img src="../unilux.svg" alt="" width="22" height="22"><span>Uni<em>-lux</em></span></b></span></div></footer>
 </body>
 </html>
 """
@@ -180,7 +181,7 @@ def main():
 <div id="lst">{grupos}</div><p class="empty" id="vazio" hidden>Nenhum curso encontrado.</p>
 {BUSCA}
 </main>
-<footer><div class="in">Projeto independente, sem vínculo oficial com a UFSC. Atualizado em {HOJE}.</div></footer>
+<footer><div class="in">Projeto independente, sem vínculo oficial com a UFSC.<br><span class="ulx">Projeto em parceria com <b><img src="../unilux.svg" alt="" width="22" height="22"><span>Uni<em>-lux</em></span></b></span> Atualizado em {HOJE}.</div></footer>
 </body></html>
 """
     open(os.path.join(RAIZ, "cursos", "index.html"), "w", encoding="utf-8").write(out)
