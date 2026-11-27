@@ -38,7 +38,24 @@ td.c{white-space:nowrap;font-weight:700;color:var(--av)}td.h{white-space:nowrap;
 @media(max-width:640px){th.p,td.p{display:none}td,th{padding:8px 10px}}
 ul.opts{columns:2;gap:24px;padding-left:18px;font-size:14px}@media(max-width:640px){ul.opts{columns:1}}
 .cursos{display:flex;flex-wrap:wrap;gap:6px;padding:0;list-style:none}.cursos a{display:inline-block;padding:6px 12px;border-radius:99px;border:1px solid var(--line2);color:var(--ink);text-decoration:none;font-size:13.5px;background:var(--panel)}
+.srch{position:sticky;top:0;z-index:2;background:var(--bg);padding:10px 0 12px;margin:0 -2px}
+.srch input{width:100%;min-height:50px;padding:0 16px 0 46px;border-radius:16px;border:1px solid var(--line2);background:var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%238b8f99' stroke-width='2.3' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") 16px center no-repeat;color:var(--ink);font:500 16px Inter,system-ui,sans-serif}
+.srch input:focus{outline:2px solid var(--av);outline-offset:0;border-color:transparent}
+.az{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 8px}.az a{display:grid;place-items:center;min-width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);text-decoration:none;font-weight:700;font-size:13px}
+.grp{margin:18px 0 0}.grp h2{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 8px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);scroll-margin-top:80px}
+.cl{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel)}
+.cl li+li{border-top:1px solid var(--line)}
+.cl a{display:flex;align-items:center;gap:12px;min-height:60px;padding:10px 14px;color:var(--ink);text-decoration:none}
+.cl a:hover{background:var(--soft)}
+.cl .ic{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:var(--soft);border:1px solid var(--line2);color:var(--mute)}
+.cl .t{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.3}.cl .t b{font-weight:700}.cl .t small{font-size:12.5px;color:var(--mute)}
+.cl .go{flex:none;color:var(--mute)}
+.empty{padding:30px 10px;text-align:center;color:var(--mute)}
+.more{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 18px;border-radius:99px;border:1px solid var(--line2);background:var(--panel);color:var(--ink);font-weight:700;text-decoration:none}
 footer{margin-top:44px;border-top:1px solid var(--line);padding:22px 0 40px;font-size:13px;color:var(--mute)}"""
+
+BUSCA = r"""<script>(function(){var q=document.getElementById("q"),n=function(t){return t.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()};
+q.addEventListener("input",function(){var v=n(q.value.trim()),tot=0;document.querySelectorAll(".grp").forEach(function(g){var c=0;g.querySelectorAll("li").forEach(function(li){var ok=!v||n(li.dataset.n).indexOf(v)>=0;li.hidden=!ok;if(ok)c++});g.hidden=!c;tot+=c});document.getElementById("vazio").hidden=!!tot;document.querySelector(".az").hidden=!!v})})();</script>"""
 
 GUARD = """<script>(function(){var ok=["edilson-666.github.io","localhost","127.0.0.1",""];if(ok.indexOf(location.hostname)<0){location.replace("%s"+location.pathname.replace(/^.*\\/cursos\\//,"cursos/"));return}if(window.top!==window.self){try{window.top.location.replace(location.href)}catch(e){document.documentElement.style.display="none"}}})();</script>""" % SITE
 
@@ -130,7 +147,7 @@ def main():
 {fases}
 {optsec}
 <h2>Outros cursos da UFSC</h2>
-{lista(k)}
+<a class="more" href="./">Ver as grades de todos os {len(keys)} cursos →</a>
 </main>
 <footer><div class="in">Dados extraídos dos currículos oficiais publicados no CAGR/UFSC. Atualizado em {HOJE}. Projeto independente, sem vínculo oficial com a UFSC.</div></footer>
 </body>
@@ -138,6 +155,16 @@ def main():
 """
         open(os.path.join(RAIZ, "cursos", pag[k]), "w", encoding="utf-8").write(out)
     # índice de cursos
+    IC = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>'
+    GO = '<svg class="go" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>'
+    letras = {}
+    for k in keys: letras.setdefault(slugify(C[k]["nome"])[0].upper(), []).append(k)
+    az = "".join(f'<a href="#l-{l}">{l}</a>' for l in letras)
+    grupos = "".join(
+        f'<section class="grp"><h2 id="l-{l}"><span>{l}</span><span>{len(ks)}</span></h2><ul class="cl">' + "".join(
+            f'<li data-n="{e(C[k]["nome"])}"><a href="{pag[k]}"><span class="ic">{IC}</span><span class="t"><b>{e(C[k]["nome"])}</b>'
+            f'<small>{max(d[3] for d in C[k]["D"])} fases · {len(C[k]["D"])} disciplinas · {C[k]["total"]} h/a</small></span>{GO}</a></li>' for k in ks) + "</ul></section>"
+        for l, ks in letras.items())
     url = SITE + "cursos/"
     title = "Grades curriculares da UFSC – todos os cursos de graduação"
     desc = f"Grade curricular e pré-requisitos de {len(keys)} cursos de graduação da UFSC, com mapa interativo por fase."
@@ -148,7 +175,11 @@ def main():
 <header><div class="in"><a class="brand" href="../"><img src="../brasao-ufsc.webp" alt="Brasão da UFSC" width="36" height="40">Grade <em>UFSC</em></a><a class="cta" style="min-height:40px;padding:0 16px;font-size:14px" href="../">Abrir mapa</a></div></header>
 <main class="in"><nav class="bc"><a href="../">Grade UFSC</a> › Cursos</nav>
 <h1>Grades curriculares da UFSC</h1><p class="lead">{e(desc)} Escolha o curso para ver as disciplinas de cada fase e seus pré-requisitos.</p>
-{lista()}</main>
+<div class="srch"><input id="q" type="search" placeholder="Buscar curso" aria-label="Buscar curso" autocomplete="off"></div>
+<nav class="az" aria-label="Ir para a letra">{az}</nav>
+<div id="lst">{grupos}</div><p class="empty" id="vazio" hidden>Nenhum curso encontrado.</p>
+{BUSCA}
+</main>
 <footer><div class="in">Projeto independente, sem vínculo oficial com a UFSC. Atualizado em {HOJE}.</div></footer>
 </body></html>
 """
